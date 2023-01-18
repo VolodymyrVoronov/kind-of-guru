@@ -4,7 +4,7 @@ import { AnimatePresence } from "framer-motion";
 const AppBody = (): JSX.Element => {
   const location = useLocation();
 
-  return <div>App Body</div>;
+  return <div>AppBody</div>;
 };
 
 export default AppBody;
