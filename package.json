@@ -1,0 +1,17 @@
+{
+  "name": "@monorepo/root",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build"
+  },
+  "dependencies": {
+    "turbo": "^1.7.0"
+  }
+}
