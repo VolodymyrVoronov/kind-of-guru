@@ -1,10 +1,10 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-import RoutePaths from "../../constants/paths";
+import RoutePaths from "../../constants/routePaths";
 
-import Calendar from "../Calendar/Calendar";
 import AnimatedWrapper from "../AnimatedWrapper/AnimatedWrapper";
+import Main from "../../pages/Main/Main";
 
 const AppBody = (): JSX.Element => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const AppBody = (): JSX.Element => {
       <motion.div>
         <AnimatePresence mode="wait">
           <Routes key={location.pathname} location={location}>
-            <Route path={RoutePaths.Root} element={<Calendar />} />
+            <Route path={RoutePaths.Root} element={<Main />} />
           </Routes>
         </AnimatePresence>
       </motion.div>

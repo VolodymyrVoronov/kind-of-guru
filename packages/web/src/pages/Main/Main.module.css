@@ -1,0 +1,33 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(50px, auto);
+  grid-template-areas:
+    "h h h h h h h h h h h h"
+    "b b b b b b b b b b b b"
+    "b b b b b b b b b b b b";
+}
+
+.main__header {
+  grid-area: h;
+}
+
+.main__body {
+  display: grid;
+  grid-template-columns: 400px repeat(11, 1fr);
+  grid-auto-rows: auto;
+  grid-template-areas:
+    "c t t t t t t t t t t t"
+    "c t t t t t t t t t t t";
+  grid-area: b;
+}
+
+.main__calendar {
+  grid-area: c;
+}
+
+.main__timetable {
+  grid-area: t;
+
+  overflow: auto;
+}

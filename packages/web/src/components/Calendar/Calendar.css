@@ -7,6 +7,21 @@
   line-height: unset;
 }
 
+.Cal__Header__root {
+  min-height: 80px;
+
+  padding: 15px;
+
+  border-radius: 0;
+}
+
+.Cal__Header__dateWrapper.Cal__Header__day {
+  height: 30px;
+
+  font-size: 30px;
+  line-height: 30px;
+}
+
 .Cal__Day__root.Cal__Day__selected .Cal__Day__selection {
   border-radius: 5px;
 }
@@ -25,4 +40,8 @@
 
 .Cal__Today__root .Cal__Today__chevron {
   left: 55%;
+}
+
+.Cal__Weekdays__day {
+  margin-bottom: 0;
 }

@@ -11,16 +11,25 @@ const Calendar = (): JSX.Element => {
     today.getDate() - 365
   );
 
+  const onDateClick = (e: Date): void => {
+    const selectedDate = e.toLocaleDateString();
+
+    console.log(selectedDate);
+  };
+
+  const calendarHeight = window.innerHeight - 180;
+
   return (
     <div>
       <InfiniteCalendar
+        onSelect={onDateClick}
         selected={today}
         minDate={lastWeek}
         locale={{
           weekStartsOn: 1,
         }}
-        width={400}
-        height={window.innerHeight}
+        width="100%"
+        height={calendarHeight}
         rowHeight={50}
       />
     </div>
