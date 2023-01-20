@@ -3,6 +3,10 @@ import InfiniteCalendar from "react-infinite-calendar";
 import "react-infinite-calendar/styles.css";
 import "./Calendar.css";
 
+interface ICalendarProps {
+  height: number;
+}
+
 const Calendar = (): JSX.Element => {
   const today = new Date();
   const lastWeek = new Date(
@@ -17,7 +21,7 @@ const Calendar = (): JSX.Element => {
     console.log(selectedDate);
   };
 
-  const calendarHeight = window.innerHeight - 180;
+  const calendarHeight = window.innerHeight - 130 - 76;
 
   return (
     <div>

@@ -13,6 +13,8 @@
   padding: 15px;
 
   border-radius: 0;
+
+  background: linear-gradient(245deg, #0072f5 -20%, #ff4ecd 80%);
 }
 
 .Cal__Header__dateWrapper.Cal__Header__day {
@@ -20,6 +22,14 @@
 
   font-size: 30px;
   line-height: 30px;
+}
+
+.Cal__Weekdays__root {
+  background: linear-gradient(-45deg, #0072f5 -20%, #ff4ecd 80%);
+}
+
+.Cal__Weekdays__day {
+  background-color: transparent;
 }
 
 .Cal__Day__root.Cal__Day__selected .Cal__Day__selection {
@@ -44,4 +54,8 @@
 
 .Cal__Weekdays__day {
   margin-bottom: 0;
+}
+
+.Cal__Day__selection {
+  background: linear-gradient(-45deg, #0072f5 -20%, #ff4ecd 80%);
 }

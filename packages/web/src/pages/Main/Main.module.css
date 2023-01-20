@@ -1,15 +1,15 @@
 .main {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: minmax(50px, auto);
+  grid-auto-rows: auto;
   grid-template-areas:
-    "h h h h h h h h h h h h"
+    "n n n n n n n n n n n n"
     "b b b b b b b b b b b b"
     "b b b b b b b b b b b b";
 }
 
-.main__header {
-  grid-area: h;
+.main__nav {
+  grid-area: n;
 }
 
 .main__body {

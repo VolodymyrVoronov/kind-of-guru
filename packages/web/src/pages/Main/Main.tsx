@@ -1,18 +1,17 @@
-import React from "react";
+import React, { MutableRefObject, useRef } from "react";
 
+import NavBar from "../../components/NavBar/NavBar";
 import Calendar from "../../components/Calendar/Calendar";
 
 import styles from "./Main.module.css";
 
 const Main = (): JSX.Element => {
-  const calendarHeight = window.innerHeight - 50;
+  const containerHeight = window.innerHeight - 76;
 
   return (
     <div className={styles.main}>
-      <div className={styles.main__header}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente hic
-        nulla debitis, aut eius assumenda quasi repudiandae esse nisi atque
-        dolorem qui harum molestiae sequi numquam fugit alias tenetur animi.
+      <div className={styles.main__nav}>
+        <NavBar />
       </div>
       <div className={styles.main__body}>
         <div className={styles.main__calendar}>
@@ -20,7 +19,7 @@ const Main = (): JSX.Element => {
         </div>
         <div
           className={styles.main__timetable}
-          style={{ height: `${calendarHeight}px` }}
+          style={{ height: `${containerHeight}px` }}
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
           impedit, possimus placeat culpa perferendis minus incidunt molestiae
