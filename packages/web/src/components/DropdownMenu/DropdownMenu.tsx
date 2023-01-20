@@ -22,7 +22,7 @@ const DropdownMenu = ({
       aria-label="Menu actions"
       color="secondary"
       css={{
-        background: "linear-gradient(-45deg, #0072f586 -20%, #ff4ecd7d 80%)",
+        background: "linear-gradient(-45deg, #0072f56a -20%, #ff4ecd63 80%)",
       }}
     >
       {items.map(({ text, actionKey }) => {
