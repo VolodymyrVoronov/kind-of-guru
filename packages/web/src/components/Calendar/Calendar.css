@@ -45,11 +45,25 @@
 .Cal__Day__root.Cal__Day__enabled:hover:before {
   border-radius: 5px;
 
-  background-color: #e5e5e5;
+  background: linear-gradient(-45deg, #0072f586 -20%, #ff4ecd85 80%);
+}
+
+.Cal__Day__root.Cal__Day__today.Cal__Day__enabled {
+  color: #0072f5 !important;
 }
 
 .Cal__Today__root .Cal__Today__chevron {
   left: 55%;
+}
+
+.Cal__Today__chevron path {
+  fill: white;
+}
+
+.Cal__Today__root,
+.Cal__Today__show.Cal__Today__chevronUp,
+.Cal__Today__root.Cal__Today__show {
+  background: #0072f5da !important;
 }
 
 .Cal__Weekdays__day {
