@@ -1,5 +1,5 @@
 import { Key } from "react";
-import { To, useNavigate } from "react-router-dom";
+import { To, useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Text, Avatar, Dropdown } from "@nextui-org/react";
 import {
   IoPersonAddSharp,
@@ -57,6 +57,7 @@ const dropDownItems = [
 
 const NavBar = (): JSX.Element => {
   const navigator = useNavigate();
+  const location = useLocation();
 
   const onLogoClick = (): void => {
     navigator(RoutePaths.Root);
@@ -83,6 +84,21 @@ const NavBar = (): JSX.Element => {
             Guru
           </Text>
         </Navbar.Brand>
+
+        <Navbar.Content hideIn="xs">
+          <Text
+            h4
+            css={{
+              m: 0,
+              textGradient: "-45deg, $blue600 -20%, $pink600 80%",
+              borderBottom: "2px solid $pink600",
+            }}
+          >
+            {dropDownItems.map((item) => {
+              return location.pathname === item.to && item.text;
+            })}
+          </Text>
+        </Navbar.Content>
 
         <Navbar.Content>
           <Dropdown placement="bottom-right">
