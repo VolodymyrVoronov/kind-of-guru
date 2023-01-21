@@ -15,11 +15,11 @@
 
   color: var(--white);
 
-  border-right: 2px solid lavender;
+  border-right: 1px solid lavender;
 }
 
 .timeline__box:first-child {
-  border-left: 2px solid lavender;
+  border-left: 1px solid lavender;
 }
 
 .timeline__box:last-child {
