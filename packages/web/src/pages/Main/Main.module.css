@@ -27,3 +27,12 @@
 
   width: 100%;
 }
+
+.main__timeline-button {
+  background-color: #3f6ae5;
+
+  font-size: 24px;
+
+  border-radius: unset;
+  border-left: 2px solid lavender;
+}

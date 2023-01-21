@@ -11,10 +11,15 @@
   display: flex;
   flex-grow: 1;
   justify-content: center;
+  align-items: center;
 
   color: var(--white);
 
   border-right: 2px solid lavender;
+}
+
+.timeline__box:first-child {
+  border-left: 2px solid lavender;
 }
 
 .timeline__box:last-child {
