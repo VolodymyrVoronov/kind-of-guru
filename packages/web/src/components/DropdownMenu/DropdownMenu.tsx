@@ -42,7 +42,11 @@ const DropdownMenu = ({
             }}
             withDivider={id === 5}
             icon={icon}
-            command={location.pathname === to ? ((<IoFlagSharp />) as any) : ""}
+            command={
+              location.pathname === to
+                ? ((<IoFlagSharp />) as unknown as string | undefined)
+                : ""
+            }
           >
             {text}
           </Dropdown.Item>

@@ -1,5 +1,3 @@
-import React from "react";
-
 import timeLineBoxes from "./timeLineBoxes";
 
 import styles from "./TimeLine.module.css";
