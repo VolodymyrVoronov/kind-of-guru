@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 import RoutePaths from "../../constants/routePaths";
 
@@ -15,23 +15,72 @@ import NavBar from "../NavBar/NavBar";
 const AppBody = (): JSX.Element => {
   const location = useLocation();
 
+  const variants = {
+    initial: {
+      y: 0,
+      opacity: 0,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+    },
+    exit: {
+      y: window.innerHeight,
+      opacity: 0,
+    },
+    transition: {
+      duration: 1.5,
+    },
+  };
+
   return (
-    <AnimatedWrapper>
-      <motion.div>
-        <div>
-          <NavBar />
-        </div>
-        <AnimatePresence mode="wait">
-          <Routes key={location.pathname} location={location}>
-            <Route path={RoutePaths.Root} element={<Main />} />
-            <Route path={RoutePaths.Users} element={<Users />} />
-            <Route path={RoutePaths.Projects} element={<Projects />} />
-            <Route path={RoutePaths.NewUser} element={<NewUser />} />
-            <Route path={RoutePaths.NewProject} element={<NewProject />} />
-          </Routes>
-        </AnimatePresence>
-      </motion.div>
-    </AnimatedWrapper>
+    <>
+      <NavBar />
+      <AnimatePresence mode="wait">
+        <Routes key={location.pathname} location={location}>
+          <Route
+            path={RoutePaths.Root}
+            element={
+              <AnimatedWrapper animation={variants}>
+                <Main />
+              </AnimatedWrapper>
+            }
+          />
+          <Route
+            path={RoutePaths.Users}
+            element={
+              <AnimatedWrapper animation={variants}>
+                <Users />
+              </AnimatedWrapper>
+            }
+          />
+          <Route
+            path={RoutePaths.Projects}
+            element={
+              <AnimatedWrapper animation={variants}>
+                <Projects />
+              </AnimatedWrapper>
+            }
+          />
+          <Route
+            path={RoutePaths.NewUser}
+            element={
+              <AnimatedWrapper animation={variants}>
+                <NewUser />
+              </AnimatedWrapper>
+            }
+          />
+          <Route
+            path={RoutePaths.NewProject}
+            element={
+              <AnimatedWrapper animation={variants}>
+                <NewProject />
+              </AnimatedWrapper>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 };
 

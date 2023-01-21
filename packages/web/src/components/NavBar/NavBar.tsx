@@ -1,6 +1,7 @@
 import { Key } from "react";
 import { To, useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Text, Avatar, Dropdown } from "@nextui-org/react";
+import { AnimatePresence } from "framer-motion";
 import {
   IoPersonAddSharp,
   IoReaderSharp,
@@ -16,6 +17,7 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import guruIcon01 from "../../assets/images/guru-icon-01.png";
 
 import styles from "./NavBar.module.css";
+import AnimatedWrapper from "../AnimatedWrapper/AnimatedWrapper";
 
 const dropDownItems = [
   {
@@ -67,6 +69,27 @@ const NavBar = (): JSX.Element => {
     navigator(to as To);
   };
 
+  const variants = {
+    initial: {
+      y: -20,
+      opacity: 0,
+      scale: 0.9,
+    },
+    animate: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: {
+      y: 20,
+      opacity: 0,
+      scale: 0.9,
+    },
+    transition: {
+      duration: 0.75,
+    },
+  };
+
   return (
     <div>
       <Navbar maxWidth="fluid" isBordered variant="sticky">
@@ -86,18 +109,28 @@ const NavBar = (): JSX.Element => {
         </Navbar.Brand>
 
         <Navbar.Content hideIn="xs">
-          <Text
-            h4
-            css={{
-              m: 0,
-              textGradient: "-45deg, $blue600 -20%, $pink600 80%",
-              borderBottom: "2px solid $pink600",
-            }}
-          >
+          <AnimatePresence mode="wait">
             {dropDownItems.map((item) => {
-              return location.pathname === item.to && item.text;
+              return (
+                location.pathname === item.to && (
+                  <AnimatedWrapper key={item.id} animation={variants}>
+                    <Text
+                      key={item.id}
+                      h4
+                      css={{
+                        m: 0,
+                        textGradient: "-45deg, $blue600 -20%, $pink600 80%",
+                        borderTop: "2px solid $pink600",
+                        borderBottom: "2px solid $pink600",
+                      }}
+                    >
+                      {item.text}
+                    </Text>
+                  </AnimatedWrapper>
+                )
+              );
             })}
-          </Text>
+          </AnimatePresence>
         </Navbar.Content>
 
         <Navbar.Content>
