@@ -14,4 +14,6 @@ body,
 :root {
   --white: #ffffff;
   --black: #000000;
+
+  --basic-gradient: linear-gradient(-45deg, #0072f5 -20%, #ff4ecd 80%);
 }

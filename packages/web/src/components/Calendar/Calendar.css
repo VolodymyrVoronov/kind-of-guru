@@ -25,7 +25,7 @@
 }
 
 .Cal__Weekdays__root {
-  background: linear-gradient(-45deg, #0072f5 -20%, #ff4ecd 80%);
+  background: var(--basic-gradient);
 }
 
 .Cal__Weekdays__day {
@@ -45,7 +45,7 @@
 .Cal__Day__root.Cal__Day__enabled:hover:before {
   border-radius: 5px;
 
-  background: linear-gradient(-45deg, #0072f586 -20%, #ff4ecd85 80%);
+  background: var(--basic-gradient);
 }
 
 .Cal__Day__root.Cal__Day__today.Cal__Day__enabled {
@@ -71,5 +71,5 @@
 }
 
 .Cal__Day__selection {
-  background: linear-gradient(-45deg, #0072f5 -20%, #ff4ecd 80%);
+  background: var(--basic-gradient);
 }
