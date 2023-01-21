@@ -1,5 +1,13 @@
 import { Key } from "react";
+import { To, useNavigate } from "react-router-dom";
 import { Navbar, Text, Avatar, Dropdown } from "@nextui-org/react";
+import {
+  IoPersonAddSharp,
+  IoReaderSharp,
+  IoPeople,
+  IoFileTrayStacked,
+  IoHomeSharp,
+} from "react-icons/io5";
 
 import RoutePaths from "../../constants/routePaths";
 
@@ -7,38 +15,61 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
 import guruIcon01 from "../../assets/images/guru-icon-01.png";
 
+import styles from "./NavBar.module.css";
+
 const dropDownItems = [
   {
     id: 1,
     text: "Users",
-    actionKey: RoutePaths.Users,
+    description: "Show all users",
+    to: RoutePaths.Users,
+    icon: <IoPeople />,
   },
   {
     id: 2,
     text: "Projects",
-    actionKey: RoutePaths.Projects,
+    description: "Show all projects",
+    to: RoutePaths.Projects,
+    icon: <IoFileTrayStacked />,
   },
   {
     id: 3,
     text: "New user",
-    actionKey: RoutePaths.NewUser,
+    description: "Create new user",
+    to: RoutePaths.NewUser,
+    icon: <IoPersonAddSharp />,
   },
   {
     id: 4,
     text: "New project",
-    actionKey: RoutePaths.NewProject,
+    description: "Create new project",
+    to: RoutePaths.NewProject,
+    icon: <IoReaderSharp />,
+  },
+  {
+    id: 5,
+    text: "Home",
+    description: "Back to main page",
+    to: RoutePaths.Root,
+    icon: <IoHomeSharp />,
   },
 ];
 
 const NavBar = (): JSX.Element => {
-  const onMenuItemClick = (actionKey: Key): void => {
-    console.log(actionKey);
+  const navigator = useNavigate();
+
+  const onLogoClick = (): void => {
+    navigator(RoutePaths.Root);
+  };
+
+  const onMenuItemClick = (to: Key): void => {
+    navigator(to as To);
   };
 
   return (
     <div>
       <Navbar maxWidth="fluid" isBordered variant="sticky">
-        <Navbar.Brand>
+        <Navbar.Brand onClick={onLogoClick} className={styles.navbar__logo}>
           <Text
             h1
             size="$4xl"

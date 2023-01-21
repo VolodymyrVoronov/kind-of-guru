@@ -1,0 +1,11 @@
+.navbar__logo {
+  transition: all 350ms ease;
+  transform: scale(1);
+  cursor: default;
+}
+
+.navbar__logo:hover {
+  transition: all 350ms ease;
+  transform: scale(1.1);
+  cursor: pointer;
+}

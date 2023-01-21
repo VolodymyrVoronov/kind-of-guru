@@ -1,15 +1,5 @@
 .main {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: auto;
-  grid-template-areas:
-    "n n n n n n n n n n n n"
-    "b b b b b b b b b b b b"
-    "b b b b b b b b b b b b";
-}
-
-.main__nav {
-  grid-area: n;
 }
 
 .main__body {
