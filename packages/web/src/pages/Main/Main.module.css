@@ -12,7 +12,18 @@
 }
 
 .main__timetable {
+  position: relative;
   grid-area: t;
 
   overflow: auto;
+}
+
+.main__timeline {
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  display: flex;
+
+  width: 100%;
 }

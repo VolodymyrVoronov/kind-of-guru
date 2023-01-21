@@ -1,5 +1,6 @@
 import Calendar from "../../components/Calendar/Calendar";
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
+import TimeLine from "../../components/TimeLine/TimeLine";
 
 import styles from "./Main.module.css";
 
@@ -15,6 +16,9 @@ const Main = (): JSX.Element => {
         className={styles.main__timetable}
         style={{ height: `${containerHeight}px` }}
       >
+        <div className={styles.main__timeline}>
+          <TimeLine />
+        </div>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
         impedit, possimus placeat culpa perferendis minus incidunt molestiae
         perspiciatis aspernatur libero officiis fugiat, maxime quam. Numquam

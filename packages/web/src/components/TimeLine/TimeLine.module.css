@@ -1,0 +1,22 @@
+.timeline {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+
+  background: linear-gradient(100deg, #0072f5 -20%, #ff4ecd 80%);
+}
+
+.timeline__box {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+
+  color: var(--white);
+
+  border-right: 2px solid lavender;
+}
+
+.timeline__box:last-child {
+  border-right: none;
+}
