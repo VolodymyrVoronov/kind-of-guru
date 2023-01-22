@@ -19,7 +19,9 @@ const Main = (): JSX.Element => {
       </div>
       <ContainerHeightWrapper
         className={styles.main__timetable}
-        style={{ height: `${window.innerHeight - 76}px` }}
+        style={{
+          height: `${window.innerHeight - 76}px`,
+        }}
       >
         <div className={styles.main__timeline}>
           <Button
