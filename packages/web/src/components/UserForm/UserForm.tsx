@@ -30,12 +30,12 @@ interface IFormData {
   extern: boolean;
 }
 
-interface INewUserFormProps {
+interface IUserFormProps {
   data?: IFormData;
   saveHandle: (data: IFormData) => void;
 }
 
-const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
+const UserForm = ({ data, saveHandle }: IUserFormProps): JSX.Element => {
   const [formData, setFormData] = useState<IFormData>({
     firstName: data?.firstName || "",
     familyName: data?.familyName || "",
@@ -220,4 +220,4 @@ const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
   );
 };
 
-export default NewUserForm;
+export default UserForm;
