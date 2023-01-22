@@ -6,6 +6,7 @@ import {
   FormElement,
   Grid,
   Input,
+  Loading,
   Radio,
   Spacer,
   Textarea,
@@ -115,7 +116,7 @@ const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
             </Grid>
             <Grid xs>
               <Input
-                name="secondName"
+                name="familyName"
                 defaultValue={formData.familyName}
                 onChange={onInputChange}
                 clearable
@@ -188,9 +189,10 @@ const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
                 type="button"
                 color="gradient"
                 iconRight={<IoSaveSharp />}
-                disabled={!formData.firstName && !formData.familyName}
+                disabled={!formData.firstName || !formData.familyName}
               >
                 Save
+                {/* <Loading type="default" color="currentColor" size="sm" /> */}
               </Button>
             </Grid>
           </Grid.Container>
