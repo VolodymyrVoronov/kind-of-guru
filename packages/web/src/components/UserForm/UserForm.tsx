@@ -180,6 +180,7 @@ const UserForm = ({ data, saveHandle }: IUserFormProps): JSX.Element => {
                 size="xl"
                 label="Joined company"
                 type="date"
+                shadow
               />
             </Grid>
             <Grid xs>
