@@ -23,6 +23,7 @@ interface IFormData {
   firstName: string;
   familyName: string;
   information: string;
+  joinedCompany: string;
   home: boolean;
   office: boolean;
   intern: boolean;
@@ -39,6 +40,7 @@ const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
     firstName: data?.firstName || "",
     familyName: data?.familyName || "",
     information: data?.information || "",
+    joinedCompany: data?.joinedCompany || "",
     home: data?.home || true,
     office: data?.office || false,
     intern: data?.intern || true,
@@ -135,11 +137,14 @@ const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
           <Spacer y={1.5} />
 
           <Grid.Container gap={2}>
-            <Grid xs>
+            <Grid xs alignItems="flex-start">
               <Radio.Group
                 onChange={onRadioChange}
                 defaultValue="home"
                 label="Place of work"
+                css={{
+                  width: "100%",
+                }}
               >
                 <Radio value="home" name="home" color="secondary">
                   <IoHomeSharp /> <Spacer x={0.5} /> From home
@@ -149,12 +154,15 @@ const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
                 </Radio>
               </Radio.Group>
 
-              <Spacer x={3} />
+              <Spacer x={1.5} />
 
               <Radio.Group
                 onChange={onRadioChange}
                 defaultValue="intern"
                 label="Department type"
+                css={{
+                  width: "100%",
+                }}
               >
                 <Radio value="intern" name="intern" color="secondary">
                   <IoEnterSharp /> <Spacer x={0.5} /> Intern
@@ -163,6 +171,16 @@ const NewUserForm = ({ data, saveHandle }: INewUserFormProps): JSX.Element => {
                   <IoExitSharp /> <Spacer x={0.5} /> Extern
                 </Radio>
               </Radio.Group>
+
+              <Input
+                name="joinedCompany"
+                defaultValue={formData.joinedCompany}
+                onChange={onInputChange}
+                fullWidth
+                size="xl"
+                label="Joined company"
+                type="date"
+              />
             </Grid>
             <Grid xs>
               <Textarea
