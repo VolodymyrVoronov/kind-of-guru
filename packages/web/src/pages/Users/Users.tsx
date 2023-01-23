@@ -4,6 +4,7 @@ import { Container, Grid, Progress, Spacer } from "@nextui-org/react";
 import trpc from "../../hooks/trpc";
 
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
+import UserCard from "../../components/UserCard/UserCard";
 
 const Users = (): JSX.Element => {
   const {
@@ -30,12 +31,15 @@ const Users = (): JSX.Element => {
       ) : (
         <>
           <Spacer y={2} />
-          <Container md display="flex" justify="center">
-            <Grid.Container gap={2} justify="center">
-              <Grid xs={3}>1 of 4</Grid>
-              <Grid xs={3}>2 of 4</Grid>
-              <Grid xs={3}>3 of 4</Grid>
-              <Grid xs={3}>4 of 4</Grid>
+          <Container md>
+            <Grid.Container gap={2}>
+              {dataUsers?.map((user) => {
+                return (
+                  <Grid xs={4} key={user.id}>
+                    <UserCard user={user} />
+                  </Grid>
+                );
+              })}
             </Grid.Container>
           </Container>
         </>
