@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Spacer } from "@nextui-org/react";
+import { Container, Grid, Progress, Spacer } from "@nextui-org/react";
 
 import trpc from "../../hooks/trpc";
 
@@ -17,15 +17,29 @@ const Users = (): JSX.Element => {
 
   return (
     <ContainerHeightWrapper>
-      <Spacer y={2} />
-      <Container md display="flex" justify="center">
-        <Grid.Container gap={2} justify="center">
-          <Grid xs={3}>1 of 4</Grid>
-          <Grid xs={3}>2 of 4</Grid>
-          <Grid xs={3}>3 of 4</Grid>
-          <Grid xs={3}>4 of 4</Grid>
-        </Grid.Container>
-      </Container>
+      {isLoadingFetchUsers ? (
+        <Progress
+          indeterminated
+          value={50}
+          color="gradient"
+          status="secondary"
+          css={{
+            borderRadius: 0,
+          }}
+        />
+      ) : (
+        <>
+          <Spacer y={2} />
+          <Container md display="flex" justify="center">
+            <Grid.Container gap={2} justify="center">
+              <Grid xs={3}>1 of 4</Grid>
+              <Grid xs={3}>2 of 4</Grid>
+              <Grid xs={3}>3 of 4</Grid>
+              <Grid xs={3}>4 of 4</Grid>
+            </Grid.Container>
+          </Container>
+        </>
+      )}
     </ContainerHeightWrapper>
   );
 };
