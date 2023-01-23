@@ -32,10 +32,15 @@ interface IFormData {
 
 interface IUserFormProps {
   data?: IFormData;
-  saveHandle: (data: IFormData) => void;
+  isLoading: boolean;
+  onSaveClick: (userData: IFormData) => void;
 }
 
-const UserForm = ({ data, saveHandle }: IUserFormProps): JSX.Element => {
+const UserForm = ({
+  data,
+  isLoading,
+  onSaveClick,
+}: IUserFormProps): JSX.Element => {
   const [formData, setFormData] = useState<IFormData>({
     firstName: data?.firstName || "",
     familyName: data?.familyName || "",
@@ -48,7 +53,7 @@ const UserForm = ({ data, saveHandle }: IUserFormProps): JSX.Element => {
   });
 
   const onSaveButtonClick = (): void => {
-    saveHandle(formData);
+    onSaveClick(formData);
   };
 
   const onInputChange = (e: ChangeEvent<FormElement>): void => {
@@ -88,8 +93,6 @@ const UserForm = ({ data, saveHandle }: IUserFormProps): JSX.Element => {
       });
     }
   };
-
-  console.log(formData);
 
   return (
     <Container md>
@@ -203,15 +206,20 @@ const UserForm = ({ data, saveHandle }: IUserFormProps): JSX.Element => {
           <Grid.Container gap={2}>
             <Grid xs={12} justify="center">
               <Button
-                onClick={onSaveButtonClick}
+                onPress={onSaveButtonClick}
                 size="lg"
                 type="button"
                 color="gradient"
-                iconRight={<IoSaveSharp />}
-                disabled={!formData.firstName || !formData.familyName}
+                iconRight={!isLoading && <IoSaveSharp />}
+                disabled={
+                  isLoading || !formData.firstName || !formData.familyName
+                }
               >
-                Save
-                {/* <Loading type="default" color="currentColor" size="sm" /> */}
+                {isLoading ? (
+                  <Loading type="default" color="currentColor" size="sm" />
+                ) : (
+                  "Save"
+                )}
               </Button>
             </Grid>
           </Grid.Container>

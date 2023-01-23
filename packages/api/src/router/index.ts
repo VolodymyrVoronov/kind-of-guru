@@ -5,31 +5,33 @@ import type { Context } from "../context";
 
 export const appRouter = trpc
   .router<Context>()
-  .query("getNotes", {
+  .query("getUsers", {
     async resolve({ ctx }) {
-      return await ctx.prisma.note.findMany();
+      return await ctx.prisma.user.findMany();
     },
   })
-  .mutation("createNote", {
+  .mutation("createUser", {
     input: z.object({
-      text: z.string().min(3).max(245),
+      firstName: z.string().min(2).max(245),
+      familyName: z.string().min(2).max(245),
+      information: z.string().max(500),
+      joinedCompany: z.string(),
+      home: z.boolean().default(true),
+      office: z.boolean().default(false),
+      intern: z.boolean().default(true),
+      extern: z.boolean().default(false),
     }),
     async resolve({ input, ctx }) {
-      return await ctx.prisma.note.create({
+      return await ctx.prisma.user.create({
         data: {
-          text: input.text,
-        },
-      });
-    },
-  })
-  .mutation("deleteNote", {
-    input: z.object({
-      id: z.number(),
-    }),
-    async resolve({ input, ctx }) {
-      return await ctx.prisma.note.delete({
-        where: {
-          id: input.id,
+          firstName: input.firstName,
+          familyName: input.familyName,
+          information: input.information,
+          joinedCompany: input.joinedCompany,
+          home: input.home,
+          office: input.office,
+          intern: input.intern,
+          extern: input.extern,
         },
       });
     },
