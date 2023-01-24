@@ -36,9 +36,15 @@ interface IUserData {
 
 interface IUserCardProps {
   user: IUserData;
+  onDeleteClick: (id: number) => void;
+  onEditClick: (id: number) => void;
 }
 
-const UserCard = ({ user }: IUserCardProps): JSX.Element => {
+const UserCard = ({
+  user,
+  onDeleteClick,
+  onEditClick,
+}: IUserCardProps): JSX.Element => {
   const {
     id,
     firstName,
@@ -50,6 +56,14 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
     intern,
     extern,
   } = user;
+
+  const onDeleteButtonClick = (): void => {
+    onDeleteClick(id);
+  };
+
+  const onEditButtonClick = (): void => {
+    onEditClick(id);
+  };
 
   return (
     <Card
@@ -110,6 +124,7 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
                 </Tooltip>
               </Grid>
             )}
+
             {office && (
               <Grid
                 xs={1.5}
@@ -122,6 +137,7 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
                 </Tooltip>
               </Grid>
             )}
+
             {intern && (
               <Grid
                 xs={1.5}
@@ -134,6 +150,7 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
                 </Tooltip>
               </Grid>
             )}
+
             {extern && (
               <Grid
                 xs={1.5}
@@ -171,6 +188,7 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
           }}
         >
           <Button
+            onPress={onDeleteButtonClick}
             size="md"
             auto
             ghost
@@ -181,6 +199,7 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
             Delete
           </Button>
           <Button
+            onPress={onEditButtonClick}
             size="md"
             rounded
             color="gradient"

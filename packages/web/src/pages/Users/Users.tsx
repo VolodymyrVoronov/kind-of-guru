@@ -14,7 +14,9 @@ const Users = (): JSX.Element => {
     error: errorFetchUsers,
   } = trpc.useQuery(["getUsers"]);
 
-  console.log(dataUsers);
+  const onDeleteClick = (id: number): void => {};
+
+  const onEditClick = (id: number): void => {};
 
   return (
     <ContainerHeightWrapper>
@@ -36,7 +38,11 @@ const Users = (): JSX.Element => {
               {dataUsers?.map((user) => {
                 return (
                   <Grid xs={4} key={user.id}>
-                    <UserCard user={user} />
+                    <UserCard
+                      user={user}
+                      onDeleteClick={onDeleteClick}
+                      onEditClick={onEditClick}
+                    />
                   </Grid>
                 );
               })}
