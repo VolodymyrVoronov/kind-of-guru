@@ -79,7 +79,7 @@ const UserCard = ({
           className={styles.avatar}
           text={extractFirstLetter(firstName) + extractFirstLetter(familyName)}
           size="xl"
-          color="primary"
+          color="gradient"
           textColor="white"
         />
 
