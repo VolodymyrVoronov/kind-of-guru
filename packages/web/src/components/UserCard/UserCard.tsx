@@ -7,6 +7,7 @@ import {
   Grid,
   Spacer,
   Text,
+  Tooltip,
 } from "@nextui-org/react";
 import {
   IoTrashSharp,
@@ -89,11 +90,11 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
 
       <Card.Body css={{ py: "$3" }}>
         <Card
-          variant="flat"
           css={{
             py: "$3",
             borderRadius: 50,
-            background: "linear-gradient(45deg, #0072f586 -20%, #ff4ecd86 80%)",
+            color: "#172025",
+            background: "linear-gradient(45deg, #0072f547 -20%, #ff4ecd49 80%)",
           }}
         >
           <Grid.Container justify="center">
@@ -104,7 +105,9 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
                   fontSize: 26,
                 }}
               >
-                <IoHomeSharp />
+                <Tooltip content="Place of work: home">
+                  <IoHomeSharp />
+                </Tooltip>
               </Grid>
             )}
             {office && (
@@ -114,7 +117,9 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
                   fontSize: 26,
                 }}
               >
-                <IoBusinessSharp />
+                <Tooltip content="Place of work: office">
+                  <IoBusinessSharp />
+                </Tooltip>
               </Grid>
             )}
             {intern && (
@@ -124,7 +129,9 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
                   fontSize: 29,
                 }}
               >
-                <IoEnterSharp />
+                <Tooltip content="Intern department">
+                  <IoEnterSharp />
+                </Tooltip>
               </Grid>
             )}
             {extern && (
@@ -134,7 +141,9 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
                   fontSize: 29,
                 }}
               >
-                <IoExitSharp />
+                <Tooltip content="Extern department">
+                  <IoExitSharp />
+                </Tooltip>
               </Grid>
             )}
           </Grid.Container>
