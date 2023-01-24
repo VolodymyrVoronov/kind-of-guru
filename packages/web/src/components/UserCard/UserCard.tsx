@@ -1,6 +1,25 @@
 import React from "react";
-import { Button, Card, Container, Grid, Spacer, Text } from "@nextui-org/react";
-import { IoTrashSharp, IoPencilSharp } from "react-icons/io5";
+import {
+  Avatar,
+  Button,
+  Card,
+  Container,
+  Grid,
+  Spacer,
+  Text,
+} from "@nextui-org/react";
+import {
+  IoTrashSharp,
+  IoPencilSharp,
+  IoHomeSharp,
+  IoBusinessSharp,
+  IoExitSharp,
+  IoEnterSharp,
+} from "react-icons/io5";
+
+import extractFirstLetter from "../../helpers/extractFirstLetter";
+
+import styles from "./UserCard.module.css";
 
 interface IUserData {
   id: number;
@@ -41,12 +60,14 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
       }}
     >
       <Card.Header>
-        <img
-          alt="nextui logo"
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-          width="58px"
-          height="58px"
+        <Avatar
+          className={styles.avatar}
+          text={extractFirstLetter(firstName) + extractFirstLetter(familyName)}
+          size="xl"
+          color="primary"
+          textColor="white"
         />
+
         <Grid.Container css={{ alignSelf: "flex-start", pl: "$6" }}>
           <Grid xs={12}>
             <Text h4 css={{ lineHeight: "$xs" }}>
@@ -57,6 +78,7 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
               {familyName}
             </Text>
           </Grid>
+
           {joinedCompany && (
             <Grid xs={12}>
               <Text css={{ color: "$accents8" }}>Since: {joinedCompany}</Text>
@@ -64,9 +86,71 @@ const UserCard = ({ user }: IUserCardProps): JSX.Element => {
           )}
         </Grid.Container>
       </Card.Header>
-      <Card.Body css={{ py: "$2" }}>
-        {information && <Text>{information}</Text>}
+
+      <Card.Body css={{ py: "$3" }}>
+        <Card
+          variant="flat"
+          css={{
+            py: "$3",
+            borderRadius: 50,
+            background: "linear-gradient(45deg, #0072f586 -20%, #ff4ecd86 80%)",
+          }}
+        >
+          <Grid.Container justify="center">
+            {home && (
+              <Grid
+                xs={1.5}
+                css={{
+                  fontSize: 26,
+                }}
+              >
+                <IoHomeSharp />
+              </Grid>
+            )}
+            {office && (
+              <Grid
+                xs={1.5}
+                css={{
+                  fontSize: 26,
+                }}
+              >
+                <IoBusinessSharp />
+              </Grid>
+            )}
+            {intern && (
+              <Grid
+                xs={1.5}
+                css={{
+                  fontSize: 29,
+                }}
+              >
+                <IoEnterSharp />
+              </Grid>
+            )}
+            {extern && (
+              <Grid
+                xs={1.5}
+                css={{
+                  fontSize: 29,
+                }}
+              >
+                <IoExitSharp />
+              </Grid>
+            )}
+          </Grid.Container>
+        </Card>
+
+        {information && (
+          <Text
+            css={{
+              marginTop: "15px",
+            }}
+          >
+            {information}
+          </Text>
+        )}
       </Card.Body>
+
       <Card.Footer>
         <Container
           display="flex"
