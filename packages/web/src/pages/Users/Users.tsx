@@ -7,6 +7,8 @@ import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/Cont
 import UserCard from "../../components/UserCard/UserCard";
 
 const Users = (): JSX.Element => {
+  const utils = trpc.useContext();
+
   const {
     data: dataUsers,
     isLoading: isLoadingFetchUsers,
@@ -14,7 +16,9 @@ const Users = (): JSX.Element => {
     error: errorFetchUsers,
   } = trpc.useQuery(["getUsers"]);
 
-  const onDeleteClick = (id: number): void => {};
+  const onDeleteClick = (id: number): void => {
+    console.log(id);
+  };
 
   const onEditClick = (id: number): void => {};
 

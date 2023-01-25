@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Avatar,
   Button,
@@ -19,6 +19,8 @@ import {
 } from "react-icons/io5";
 
 import extractFirstLetter from "../../helpers/extractFirstLetter";
+
+import CustomModal from "../CustomModal/CustomModal";
 
 import styles from "./UserCard.module.css";
 
@@ -57,23 +59,54 @@ const UserCard = ({
     extern,
   } = user;
 
-  const onDeleteButtonClick = (): void => {
-    onDeleteClick(id);
+  const [isPopoverVisible, setIsPopoverVisible] = useState(false);
+
+  const onDeleteCardButtonClick = (): void => {
+    setIsPopoverVisible(true);
   };
 
   const onEditButtonClick = (): void => {
     onEditClick(id);
   };
 
+  const onCancelButtonClick = (): void => {
+    setIsPopoverVisible(false);
+  };
+
+  const onConfirmDeleteButtonClick = (): void => {
+    onDeleteClick(id);
+    setIsPopoverVisible(false);
+  };
+
   return (
     <Card
-      isHoverable
       css={{
         p: "$6",
         mw: "400px",
         background: "linear-gradient(-45deg, #0072f522 -20%, #ff4ecd24 80%)",
       }}
     >
+      <CustomModal
+        title="Confirm"
+        text="Are you sure you want to delete this user ? By doing this, you will not be able to recover the data."
+        isVisible={isPopoverVisible}
+        onClose={onCancelButtonClick}
+        cancelButton={
+          <Button onPress={onCancelButtonClick} size="sm" light bordered>
+            Cancel
+          </Button>
+        }
+        confirmButton={
+          <Button
+            onPress={onConfirmDeleteButtonClick}
+            size="sm"
+            shadow
+            color="error"
+          >
+            Delete
+          </Button>
+        }
+      />
       <Card.Header>
         <Avatar
           className={styles.avatar}
@@ -188,7 +221,7 @@ const UserCard = ({
           }}
         >
           <Button
-            onPress={onDeleteButtonClick}
+            onPress={onDeleteCardButtonClick}
             size="md"
             auto
             ghost
@@ -198,6 +231,7 @@ const UserCard = ({
           >
             Delete
           </Button>
+
           <Button
             onPress={onEditButtonClick}
             size="md"
