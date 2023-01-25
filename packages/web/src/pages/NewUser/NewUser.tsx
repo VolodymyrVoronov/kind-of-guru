@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Badge, Container, Spacer } from "@nextui-org/react";
+import { Badge, Spacer } from "@nextui-org/react";
 
 import trpc from "../../hooks/trpc";
 
@@ -44,16 +44,20 @@ const NewUser = (): JSX.Element => {
 
   return (
     <ContainerHeightWrapper>
-      <Spacer y={1} />
-      <Container md display="flex" justify="center">
+      <div style={{ position: "absolute" }}>
         {isError && (
           <AnimatedWrapper>
             <Badge
-              size="xl"
+              size="md"
               color="error"
               css={{
+                mt: -2,
+                ml: -2,
                 textAlign: "center",
-                borderRadius: "14px",
+                borderTopRightRadius: 0,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+                borderBottomRightRadius: 14,
               }}
             >
               Something has gone wrong. <br />
@@ -65,20 +69,25 @@ const NewUser = (): JSX.Element => {
         {isSuccess && (
           <AnimatedWrapper>
             <Badge
-              size="xl"
+              size="md"
               color="success"
               css={{
+                mt: -2,
+                ml: -2,
                 textAlign: "center",
-                borderRadius: "14px",
+                borderTopRightRadius: 0,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+                borderBottomRightRadius: 14,
               }}
             >
               Saved!
             </Badge>
           </AnimatedWrapper>
         )}
-      </Container>
+      </div>
 
-      <Spacer y={1} />
+      <Spacer y={2} />
       <UserForm isLoading={isLoading} onSaveClick={onSaveClick} />
     </ContainerHeightWrapper>
   );
