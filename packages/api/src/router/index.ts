@@ -3,6 +3,21 @@ import { z } from "zod";
 
 import type { Context } from "../context";
 
+const User = z.object({
+  firstName: z.string().min(2).max(245),
+  familyName: z.string().min(2).max(245),
+  information: z.string().max(500),
+  joinedCompany: z.string(),
+  home: z.boolean().default(true),
+  office: z.boolean().default(false),
+  intern: z.boolean().default(true),
+  extern: z.boolean().default(false),
+});
+
+const UserWithId = User.extend({
+  id: z.number(),
+});
+
 export const appRouter = trpc
   .router<Context>()
   .query("getUsers", {
@@ -11,16 +26,7 @@ export const appRouter = trpc
     },
   })
   .mutation("createUser", {
-    input: z.object({
-      firstName: z.string().min(2).max(245),
-      familyName: z.string().min(2).max(245),
-      information: z.string().max(500),
-      joinedCompany: z.string(),
-      home: z.boolean().default(true),
-      office: z.boolean().default(false),
-      intern: z.boolean().default(true),
-      extern: z.boolean().default(false),
-    }),
+    input: User,
     async resolve({ input, ctx }) {
       return await ctx.prisma.user.create({
         data: {
@@ -32,6 +38,39 @@ export const appRouter = trpc
           office: input.office,
           intern: input.intern,
           extern: input.extern,
+        },
+      });
+    },
+  })
+  .mutation("updatedUser", {
+    input: UserWithId,
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.user.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          firstName: input.firstName,
+          familyName: input.familyName,
+          information: input.information,
+          joinedCompany: input.joinedCompany,
+          home: input.home,
+          office: input.office,
+          intern: input.intern,
+          extern: input.extern,
+        },
+      });
+    },
+  })
+  .mutation("deleteUser", {
+    input: z.object({
+      id: z.number(),
+    }),
+
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.user.delete({
+        where: {
+          id: input.id,
         },
       });
     },

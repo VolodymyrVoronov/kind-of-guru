@@ -16,6 +16,13 @@ const Users = (): JSX.Element => {
     error: errorFetchUsers,
   } = trpc.useQuery(["getUsers"]);
 
+  const {
+    mutate: mutateDeleteUser,
+    isSuccess: isSuccessMutateDeleteUser,
+    isError: isErrorMutateDeleteUser,
+    error: errorMutateDeleteUser,
+  } = trpc.useMutation(["deleteUser"]);
+
   const onDeleteClick = (id: number): void => {
     console.log(id);
   };

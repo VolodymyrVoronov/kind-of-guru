@@ -107,6 +107,7 @@ const UserCard = ({
           </Button>
         }
       />
+
       <Card.Header>
         <Avatar
           className={styles.avatar}
