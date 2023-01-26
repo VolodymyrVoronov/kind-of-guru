@@ -130,7 +130,9 @@ const UserCard = ({
 
           {joinedCompany && (
             <Grid xs={12}>
-              <Text css={{ color: "$accents8" }}>Since: {joinedCompany}</Text>
+              <Text css={{ color: "$accents8" }}>
+                Since: {joinedCompany.split("-").reverse().join("-")}
+              </Text>
             </Grid>
           )}
         </Grid.Container>

@@ -1,14 +1,47 @@
 import { useCallback, useEffect, useState } from "react";
-import { Badge, Container, Grid, Progress, Spacer } from "@nextui-org/react";
+import {
+  Badge,
+  Container,
+  Grid,
+  Loading,
+  Modal,
+  Progress,
+  Spacer,
+  Text,
+} from "@nextui-org/react";
 
 import trpc from "../../hooks/trpc";
 
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
 import UserCard from "../../components/UserCard/UserCard";
 import AnimatedWrapper from "../../components/AnimatedWrapper/AnimatedWrapper";
+import UserForm from "../../components/UserForm/UserForm";
+
+interface IUserData {
+  id?: number;
+  firstName: string;
+  familyName: string;
+  information: string;
+  joinedCompany: string;
+  home: boolean;
+  office: boolean;
+  intern: boolean;
+  extern: boolean;
+}
 
 const Users = (): JSX.Element => {
   const utils = trpc.useContext();
+
+  const [showBadgeBox, setShowBadgeBox] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [userId, setUserId] = useState(0);
+
+  const {
+    data: dataUser,
+    isLoading: isLoadingFetchUser,
+    isError: isErrorFetchUser,
+    error: errorFetchUser,
+  } = trpc.useQuery(["getUser", { id: userId }]);
 
   const {
     data: dataUsers,
@@ -24,26 +57,44 @@ const Users = (): JSX.Element => {
     error: errorMutateDeleteUser,
   } = trpc.useMutation(["deleteUser"]);
 
-  const [showBadgeBox, setShowBadgeBox] = useState(false);
+  const {
+    mutate: mutateUpdatedUser,
+    isLoading: isLoadingUpdateUser,
+    isSuccess: isSuccessUpdateUser,
+    isError: isErrorUpdateUser,
+    error: errorUpdateUser,
+  } = trpc.useMutation(["updateUser"]);
 
   const onDeleteClick = (id: number): void => {
     mutateDeleteUser({ id });
   };
 
-  const onEditClick = (id: number): void => {};
+  const onEditClick = (id: number): void => {
+    setShowModal(true);
+    setUserId(id);
+  };
+
+  const onModalCloseClick = (): void => {
+    setShowModal(false);
+  };
+
+  const onSaveClick = (data: IUserData): void => {
+    mutateUpdatedUser({ id: userId, ...data });
+  };
 
   const refetchUsers = useCallback(() => {
-    if (isSuccessMutateDeleteUser) {
+    if (isSuccessMutateDeleteUser || isSuccessUpdateUser) {
       const timeoutId = setTimeout(() => {
         utils.invalidateQueries();
 
         clearTimeout(timeoutId);
       }, 500);
     }
-  }, [isSuccessMutateDeleteUser, utils]);
+  }, [isSuccessMutateDeleteUser, isSuccessUpdateUser, utils]);
 
   useEffect(() => {
     setShowBadgeBox(true);
+    setShowModal(false);
 
     refetchUsers();
 
@@ -56,6 +107,60 @@ const Users = (): JSX.Element => {
 
   return (
     <ContainerHeightWrapper>
+      <Modal
+        closeButton
+        aria-labelledby="Edit user form"
+        open={showModal}
+        onClose={onModalCloseClick}
+        width="1225px"
+      >
+        <Modal.Header>
+          <Text b h3>
+            Edit user
+          </Text>
+        </Modal.Header>
+        <Modal.Body
+          css={{
+            p: 0,
+            pb: 24,
+          }}
+        >
+          {!isLoadingFetchUser && dataUser ? (
+            <UserForm
+              data={dataUser}
+              isLoading={isLoadingUpdateUser}
+              onSaveClick={onSaveClick}
+            />
+          ) : (
+            <Loading size="xl" />
+          )}
+
+          {isErrorFetchUser && (
+            <AnimatedWrapper>
+              <Container
+                justify="center"
+                css={{
+                  d: "flex",
+                  w: "100%",
+                }}
+              >
+                <Badge
+                  size="lg"
+                  color="error"
+                  css={{
+                    textAlign: "center",
+                    borderRadius: 14,
+                  }}
+                >
+                  Something has gone wrong. <br />
+                  {errorFetchUser?.message}
+                </Badge>
+              </Container>
+            </AnimatedWrapper>
+          )}
+        </Modal.Body>
+      </Modal>
+
       {showBadgeBox && (
         <div style={{ position: "absolute" }}>
           {isErrorFetchUsers && (
@@ -100,6 +205,27 @@ const Users = (): JSX.Element => {
             </AnimatedWrapper>
           )}
 
+          {isErrorUpdateUser && (
+            <AnimatedWrapper>
+              <Badge
+                size="md"
+                color="error"
+                css={{
+                  mt: -2,
+                  ml: -2,
+                  textAlign: "center",
+                  borderTopRightRadius: 0,
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 14,
+                }}
+              >
+                Something has gone wrong. <br />
+                {errorUpdateUser?.message}
+              </Badge>
+            </AnimatedWrapper>
+          )}
+
           {isSuccessMutateDeleteUser && (
             <AnimatedWrapper>
               <Badge
@@ -116,6 +242,26 @@ const Users = (): JSX.Element => {
                 }}
               >
                 Deleted!
+              </Badge>
+            </AnimatedWrapper>
+          )}
+
+          {isSuccessUpdateUser && (
+            <AnimatedWrapper>
+              <Badge
+                size="md"
+                color="success"
+                css={{
+                  mt: -2,
+                  ml: -2,
+                  textAlign: "center",
+                  borderTopRightRadius: 0,
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 14,
+                }}
+              >
+                Updated!
               </Badge>
             </AnimatedWrapper>
           )}

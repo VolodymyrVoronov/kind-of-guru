@@ -25,6 +25,19 @@ export const appRouter = trpc
       return await ctx.prisma.user.findMany();
     },
   })
+  .query("getUser", {
+    input: z.object({
+      id: z.number(),
+    }),
+
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.user.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    },
+  })
   .mutation("createUser", {
     input: User,
     async resolve({ input, ctx }) {
@@ -42,7 +55,7 @@ export const appRouter = trpc
       });
     },
   })
-  .mutation("updatedUser", {
+  .mutation("updateUser", {
     input: UserWithId,
     async resolve({ input, ctx }) {
       return await ctx.prisma.user.update({

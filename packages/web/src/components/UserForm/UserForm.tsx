@@ -31,7 +31,7 @@ interface IFormData {
 }
 
 interface IUserFormProps {
-  data?: IFormData;
+  data?: IFormData | null;
   isLoading: boolean;
   onSaveClick: (userData: IFormData) => void;
 }
@@ -41,16 +41,18 @@ const UserForm = ({
   isLoading,
   onSaveClick,
 }: IUserFormProps): JSX.Element => {
-  const [formData, setFormData] = useState<IFormData>({
-    firstName: data?.firstName || "",
-    familyName: data?.familyName || "",
-    information: data?.information || "",
-    joinedCompany: data?.joinedCompany || "",
-    home: data?.home || true,
-    office: data?.office || false,
-    intern: data?.intern || true,
-    extern: data?.extern || false,
-  });
+  const initialState = {
+    firstName: data?.firstName ?? "",
+    familyName: data?.familyName ?? "",
+    information: data?.information ?? "",
+    joinedCompany: data?.joinedCompany ?? "",
+    home: data?.home ?? true,
+    office: data?.office ?? false,
+    intern: data?.intern ?? true,
+    extern: data?.extern ?? false,
+  };
+
+  const [formData, setFormData] = useState<IFormData>(initialState);
 
   const onSaveButtonClick = (): void => {
     onSaveClick(formData);
@@ -106,7 +108,7 @@ const UserForm = ({
             <Grid xs>
               <Input
                 name="firstName"
-                defaultValue={formData.firstName}
+                value={formData.firstName}
                 onChange={onInputChange}
                 clearable
                 color="default"
@@ -122,7 +124,7 @@ const UserForm = ({
             <Grid xs>
               <Input
                 name="familyName"
-                defaultValue={formData.familyName}
+                value={formData.familyName}
                 onChange={onInputChange}
                 clearable
                 color="default"
@@ -143,7 +145,7 @@ const UserForm = ({
             <Grid xs alignItems="flex-start">
               <Radio.Group
                 onChange={onRadioChange}
-                defaultValue="home"
+                value={formData.home ? "home" : "office"}
                 label="Place of work"
                 css={{
                   width: "100%",
@@ -161,7 +163,7 @@ const UserForm = ({
 
               <Radio.Group
                 onChange={onRadioChange}
-                defaultValue="intern"
+                value={formData.intern ? "intern" : "extern"}
                 label="Department type"
                 css={{
                   width: "100%",
@@ -177,7 +179,7 @@ const UserForm = ({
 
               <Input
                 name="joinedCompany"
-                defaultValue={formData.joinedCompany}
+                value={formData.joinedCompany}
                 onChange={onInputChange}
                 fullWidth
                 size="xl"
@@ -189,7 +191,7 @@ const UserForm = ({
             <Grid xs>
               <Textarea
                 name="information"
-                defaultValue={formData.information}
+                value={formData.information}
                 onChange={onInputChange}
                 label="Information"
                 placeholder="Enter some additional information"
