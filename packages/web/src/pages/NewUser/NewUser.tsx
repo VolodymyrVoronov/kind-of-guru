@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Badge, Spacer } from "@nextui-org/react";
+import { Spacer } from "@nextui-org/react";
 
 import trpc from "../../hooks/trpc";
 
@@ -9,6 +9,7 @@ import RoutePaths from "../../constants/routePaths";
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
 import UserForm from "../../components/UserForm/UserForm";
 import AnimatedWrapper from "../../components/AnimatedWrapper/AnimatedWrapper";
+import BadgeWrapper from "../../components/BadgeWrapper/BadgeWrapper";
 
 interface IUserData {
   firstName: string;
@@ -47,42 +48,18 @@ const NewUser = (): JSX.Element => {
       <div style={{ position: "absolute" }}>
         {isError && (
           <AnimatedWrapper>
-            <Badge
+            <BadgeWrapper
               size="md"
               color="error"
-              css={{
-                mt: -2,
-                ml: -2,
-                textAlign: "center",
-                borderTopRightRadius: 0,
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 14,
-              }}
-            >
-              Something has gone wrong. <br />
-              {error?.message}
-            </Badge>
+              text="Something has gone wrong."
+              textMessage={error?.message}
+            />
           </AnimatedWrapper>
         )}
 
         {isSuccess && (
           <AnimatedWrapper>
-            <Badge
-              size="md"
-              color="success"
-              css={{
-                mt: -2,
-                ml: -2,
-                textAlign: "center",
-                borderTopRightRadius: 0,
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-                borderBottomRightRadius: 14,
-              }}
-            >
-              Saved!
-            </Badge>
+            <BadgeWrapper size="md" color="success" textMessage="Saved!" />
           </AnimatedWrapper>
         )}
       </div>

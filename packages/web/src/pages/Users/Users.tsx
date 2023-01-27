@@ -16,6 +16,7 @@ import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/Cont
 import UserCard from "../../components/UserCard/UserCard";
 import AnimatedWrapper from "../../components/AnimatedWrapper/AnimatedWrapper";
 import UserForm from "../../components/UserForm/UserForm";
+import BadgeWrapper from "../../components/BadgeWrapper/BadgeWrapper";
 
 interface IUserData {
   id?: number;
@@ -165,104 +166,46 @@ const Users = (): JSX.Element => {
         <div style={{ position: "absolute" }}>
           {isErrorFetchUsers && (
             <AnimatedWrapper>
-              <Badge
+              <BadgeWrapper
                 size="md"
                 color="error"
-                css={{
-                  mt: -2,
-                  ml: -2,
-                  textAlign: "center",
-                  borderTopRightRadius: 0,
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 14,
-                }}
-              >
-                Something has gone wrong. <br />
-                {errorFetchUsers?.message}
-              </Badge>
+                text="Something has gone wrong."
+                textMessage={errorFetchUsers?.message}
+              />
             </AnimatedWrapper>
           )}
 
           {isErrorMutateDeleteUser && (
             <AnimatedWrapper>
-              <Badge
+              <BadgeWrapper
                 size="md"
                 color="error"
-                css={{
-                  mt: -2,
-                  ml: -2,
-                  textAlign: "center",
-                  borderTopRightRadius: 0,
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 14,
-                }}
-              >
-                Something has gone wrong. <br />
-                {errorMutateDeleteUser?.message}
-              </Badge>
+                text="Something has gone wrong."
+                textMessage={errorMutateDeleteUser?.message}
+              />
             </AnimatedWrapper>
           )}
 
           {isErrorUpdateUser && (
             <AnimatedWrapper>
-              <Badge
+              <BadgeWrapper
                 size="md"
                 color="error"
-                css={{
-                  mt: -2,
-                  ml: -2,
-                  textAlign: "center",
-                  borderTopRightRadius: 0,
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 14,
-                }}
-              >
-                Something has gone wrong. <br />
-                {errorUpdateUser?.message}
-              </Badge>
+                text="Something has gone wrong."
+                textMessage={errorUpdateUser?.message}
+              />
             </AnimatedWrapper>
           )}
 
           {isSuccessMutateDeleteUser && (
             <AnimatedWrapper>
-              <Badge
-                size="md"
-                color="success"
-                css={{
-                  mt: -2,
-                  ml: -2,
-                  textAlign: "center",
-                  borderTopRightRadius: 0,
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 14,
-                }}
-              >
-                Deleted!
-              </Badge>
+              <BadgeWrapper size="md" color="success" textMessage="Deleted!" />
             </AnimatedWrapper>
           )}
 
           {isSuccessUpdateUser && (
             <AnimatedWrapper>
-              <Badge
-                size="md"
-                color="success"
-                css={{
-                  mt: -2,
-                  ml: -2,
-                  textAlign: "center",
-                  borderTopRightRadius: 0,
-                  borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 14,
-                }}
-              >
-                Updated!
-              </Badge>
+              <BadgeWrapper size="md" color="success" textMessage="Updated!" />
             </AnimatedWrapper>
           )}
         </div>
