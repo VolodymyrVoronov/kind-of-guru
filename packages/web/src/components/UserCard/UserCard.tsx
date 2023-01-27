@@ -19,6 +19,7 @@ import {
 } from "react-icons/io5";
 
 import extractFirstLetter from "../../helpers/extractFirstLetter";
+import reverseDateString from "../../helpers/reverseDateString";
 
 import CustomModal from "../CustomModal/CustomModal";
 
@@ -131,7 +132,7 @@ const UserCard = ({
           {joinedCompany && (
             <Grid xs={12}>
               <Text css={{ color: "$accents8" }}>
-                Since: {joinedCompany.split("-").reverse().join("-")}
+                Since: {reverseDateString(joinedCompany)}
               </Text>
             </Grid>
           )}
