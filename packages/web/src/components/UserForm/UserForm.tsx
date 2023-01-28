@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import {
   Button,
   Card,
+  Checkbox,
   Container,
   FormElement,
   Grid,
@@ -19,6 +20,8 @@ import {
   IoSaveSharp,
 } from "react-icons/io5";
 
+import roles from "../../constants/roles";
+
 interface IFormData {
   firstName: string;
   familyName: string;
@@ -28,6 +31,7 @@ interface IFormData {
   office: boolean;
   intern: boolean;
   extern: boolean;
+  roles: string;
 }
 
 interface IUserFormProps {
@@ -35,6 +39,20 @@ interface IUserFormProps {
   isLoading: boolean;
   onSaveClick: (userData: IFormData) => void;
 }
+
+const Label = ({ text }: { text: string }): JSX.Element => {
+  return (
+    <p
+      style={{
+        fontSize: "18px",
+        fontFamily: "inherit",
+        color: "#000000",
+      }}
+    >
+      {text}
+    </p>
+  );
+};
 
 const UserForm = ({
   data,
@@ -50,6 +68,7 @@ const UserForm = ({
     office: data?.office ?? false,
     intern: data?.intern ?? true,
     extern: data?.extern ?? false,
+    roles: data?.roles ?? "",
   };
 
   const [formData, setFormData] = useState<IFormData>(initialState);
@@ -94,6 +113,12 @@ const UserForm = ({
         extern: true,
       });
     }
+  };
+
+  const onUserRolesChange = (userRoles: string[]): void => {
+    const rolesString = userRoles.join(",").toString();
+
+    setFormData({ ...formData, roles: rolesString });
   };
 
   return (
@@ -146,7 +171,7 @@ const UserForm = ({
               <Radio.Group
                 onChange={onRadioChange}
                 value={formData.home ? "home" : "office"}
-                label="Place of work"
+                label={<Label text="Place of work" />}
                 css={{
                   width: "100%",
                 }}
@@ -164,7 +189,7 @@ const UserForm = ({
               <Radio.Group
                 onChange={onRadioChange}
                 value={formData.intern ? "intern" : "extern"}
-                label="Department type"
+                label={<Label text="Department type" />}
                 css={{
                   width: "100%",
                 }}
@@ -188,6 +213,7 @@ const UserForm = ({
                 shadow
               />
             </Grid>
+
             <Grid xs>
               <Textarea
                 name="information"
@@ -200,6 +226,39 @@ const UserForm = ({
                 rows={4}
                 shadow
               />
+            </Grid>
+          </Grid.Container>
+
+          <Grid.Container gap={2}>
+            <Grid>
+              <Checkbox.Group
+                onChange={onUserRolesChange}
+                value={formData.roles === "" ? [] : formData.roles.split(",")}
+                label={
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      fontFamily: "inherit",
+                      color: "#000000",
+                    }}
+                  >
+                    Role/s
+                  </p>
+                }
+                size="lg"
+                orientation="horizontal"
+                color="secondary"
+              >
+                <div>
+                  {Object.values(roles).map((role) => {
+                    return (
+                      <Checkbox key={role} value={role}>
+                        {role}
+                      </Checkbox>
+                    );
+                  })}
+                </div>
+              </Checkbox.Group>
             </Grid>
           </Grid.Container>
 

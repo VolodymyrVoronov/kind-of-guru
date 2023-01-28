@@ -28,6 +28,7 @@ interface IUserData {
   office: boolean;
   intern: boolean;
   extern: boolean;
+  roles: string;
 }
 
 const Users = (): JSX.Element => {
@@ -92,6 +93,8 @@ const Users = (): JSX.Element => {
       }, 500);
     }
   }, [isSuccessMutateDeleteUser, isSuccessUpdateUser, utils]);
+
+  console.log(dataUsers);
 
   useEffect(() => {
     setShowBadgeBox(true);
