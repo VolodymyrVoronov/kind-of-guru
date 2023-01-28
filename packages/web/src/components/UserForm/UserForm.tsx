@@ -138,7 +138,7 @@ const UserForm = ({
                 clearable
                 color="default"
                 helperText="Required"
-                label="First name"
+                label="First name (max. 25)"
                 placeholder="Enter first name"
                 size="xl"
                 fullWidth
@@ -154,7 +154,7 @@ const UserForm = ({
                 clearable
                 color="default"
                 helperText="Required"
-                label="Family name"
+                label="Family name (max. 25)"
                 placeholder="Enter family name"
                 size="xl"
                 fullWidth
@@ -219,7 +219,7 @@ const UserForm = ({
                 name="information"
                 value={formData.information}
                 onChange={onInputChange}
-                label="Information"
+                label="Information (max. 250)"
                 placeholder="Enter some additional information"
                 fullWidth
                 size="xl"

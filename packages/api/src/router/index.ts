@@ -4,9 +4,9 @@ import { z } from "zod";
 import type { Context } from "../context";
 
 const User = z.object({
-  firstName: z.string().min(2).max(245),
-  familyName: z.string().min(2).max(245),
-  information: z.string().max(500),
+  firstName: z.string().min(2).max(25),
+  familyName: z.string().min(2).max(25),
+  information: z.string().max(250),
   joinedCompany: z.string(),
   home: z.boolean().default(true),
   office: z.boolean().default(false),
