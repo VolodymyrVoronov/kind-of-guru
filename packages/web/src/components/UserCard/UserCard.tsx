@@ -234,9 +234,7 @@ const UserCard = ({
           >
             <Text
               css={{
-                height: 200,
                 paddingRight: 5,
-                overflowX: "auto",
               }}
             >
               {information}
