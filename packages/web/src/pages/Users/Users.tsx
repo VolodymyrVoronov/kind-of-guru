@@ -94,8 +94,6 @@ const Users = (): JSX.Element => {
     }
   }, [isSuccessMutateDeleteUser, isSuccessUpdateUser, utils]);
 
-  console.log(dataUsers);
-
   useEffect(() => {
     setShowBadgeBox(true);
     setShowModal(false);

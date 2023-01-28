@@ -2,3 +2,7 @@
   font-size: 40px !important;
   line-height: 0;
 }
+
+.collapse div[role="button"] {
+  padding: 15px 0;
+}

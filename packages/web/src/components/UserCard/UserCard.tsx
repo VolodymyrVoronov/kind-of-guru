@@ -3,6 +3,7 @@ import {
   Avatar,
   Button,
   Card,
+  Collapse,
   Container,
   Grid,
   Spacer,
@@ -16,6 +17,7 @@ import {
   IoBusinessSharp,
   IoExitSharp,
   IoEnterSharp,
+  IoChevronBack,
 } from "react-icons/io5";
 
 import extractFirstLetter from "../../helpers/extractFirstLetter";
@@ -35,6 +37,7 @@ interface IUserData {
   office: boolean;
   intern: boolean;
   extern: boolean;
+  roles: string;
 }
 
 interface IUserCardProps {
@@ -58,6 +61,7 @@ const UserCard = ({
     office,
     intern,
     extern,
+    roles,
   } = user;
 
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
@@ -82,8 +86,9 @@ const UserCard = ({
   return (
     <Card
       css={{
-        p: "$6",
+        alignSelf: "flex-start",
         mw: "400px",
+        p: "$6",
         background: "linear-gradient(-45deg, #0072f522 -20%, #ff4ecd24 80%)",
       }}
     >
@@ -203,14 +208,40 @@ const UserCard = ({
           </Grid.Container>
         </Container>
 
-        {information && (
+        {roles && (
           <Text
+            h4
+            css={{
+              marginTop: "20px",
+              marginBottom: 0,
+              textGradient: "45deg, $blue600 -20%, $pink600 50%",
+            }}
+          >
+            {roles.split(",").join(", ")}
+          </Text>
+        )}
+
+        {information && (
+          <Collapse
+            className={styles.collapse}
+            arrowIcon={<IoChevronBack />}
+            title={<Text h4>Information</Text>}
+            divider={false}
+            bordered
             css={{
               marginTop: "15px",
             }}
           >
-            {information}
-          </Text>
+            <Text
+              css={{
+                height: 200,
+                paddingRight: 5,
+                overflowX: "auto",
+              }}
+            >
+              {information}
+            </Text>
+          </Collapse>
         )}
       </Card.Body>
 
