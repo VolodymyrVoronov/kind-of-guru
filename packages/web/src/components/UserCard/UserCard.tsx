@@ -140,12 +140,12 @@ const UserCard = ({
       </Card.Header>
 
       <Card.Body css={{ py: "$3" }}>
-        <Card
+        <Container
           css={{
             py: "$3",
-            borderRadius: 50,
             color: "#172025",
-            background: "linear-gradient(45deg, #0072f547 -20%, #ff4ecd49 80%)",
+            borderTop: "1px solid #17202583",
+            borderBottom: "1px solid #17202583",
           }}
         >
           <Grid.Container justify="center">
@@ -201,7 +201,7 @@ const UserCard = ({
               </Grid>
             )}
           </Grid.Container>
-        </Card>
+        </Container>
 
         {information && (
           <Text
