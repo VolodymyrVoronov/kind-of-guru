@@ -24,7 +24,9 @@ import roles from "../../constants/roles";
 
 import checkLimitReached from "../../helpers/checkLimitReached";
 import countSymbolsAmount from "../../helpers/countSymbolsAmount";
+
 import InputProgress from "../InputProgress/InputProgress";
+import Label from "../Label/Label";
 
 interface IFormData {
   firstName: string;
@@ -43,20 +45,6 @@ interface IUserFormProps {
   isLoading: boolean;
   onSaveClick: (userData: IFormData) => void;
 }
-
-const Label = ({ text }: { text: string }): JSX.Element => {
-  return (
-    <p
-      style={{
-        fontSize: "18px",
-        fontFamily: "inherit",
-        color: "#000000",
-      }}
-    >
-      {text}
-    </p>
-  );
-};
 
 const UserForm = ({
   data,
