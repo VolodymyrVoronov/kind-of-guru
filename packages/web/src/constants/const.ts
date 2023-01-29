@@ -21,4 +21,17 @@ const levels = Object.freeze({
   TeamLead: "Team Lead",
 });
 
-export { roles, levels };
+const clients = Object.freeze({
+  Audi: "Audi",
+  BMW: "BMW",
+  Porsche: "Porsche",
+  Vodafone: "Vodafone",
+  Seat: "Seat",
+  Aldi: "Aldi",
+  Edeka: "Edeka",
+  DB: "DB",
+  DHL: "DHL",
+  DPD: "DPD",
+});
+
+export { roles, levels, clients };
