@@ -20,7 +20,8 @@ import {
   IoSaveSharp,
 } from "react-icons/io5";
 
-import { levels, roles } from "../../constants/levels";
+import { levels, roles } from "../../constants/const";
+import IUser from "../../types/User";
 
 import checkLimitReached from "../../helpers/checkLimitReached";
 import countSymbolsAmount from "../../helpers/countSymbolsAmount";
@@ -28,23 +29,10 @@ import countSymbolsAmount from "../../helpers/countSymbolsAmount";
 import InputProgress from "../InputProgress/InputProgress";
 import Label from "../Label/Label";
 
-interface IFormData {
-  firstName: string;
-  familyName: string;
-  information: string;
-  joinedCompany: string;
-  home: boolean;
-  office: boolean;
-  intern: boolean;
-  extern: boolean;
-  roles: string;
-  level: string;
-}
-
 interface IUserFormProps {
-  data?: IFormData | null;
+  data?: IUser | null;
   isLoading: boolean;
-  onSaveClick: (userData: IFormData) => void;
+  onSaveClick: (userData: IUser) => void;
 }
 
 const UserForm = ({
@@ -62,10 +50,10 @@ const UserForm = ({
     intern: data?.intern ?? true,
     extern: data?.extern ?? false,
     roles: data?.roles ?? "",
-    level: data?.level ?? "Unknown",
+    level: data?.level ?? levels.Unknown,
   };
 
-  const [formData, setFormData] = useState<IFormData>(initialState);
+  const [formData, setFormData] = useState<IUser>(initialState);
 
   const onSaveButtonClick = (): void => {
     onSaveClick(formData);

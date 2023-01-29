@@ -20,6 +20,8 @@ import {
   IoChevronBack,
 } from "react-icons/io5";
 
+import IUser from "../../types/User";
+
 import extractFirstLetter from "../../helpers/extractFirstLetter";
 import reverseDateString from "../../helpers/reverseDateString";
 
@@ -27,18 +29,8 @@ import CustomModal from "../CustomModal/CustomModal";
 
 import styles from "./UserCard.module.css";
 
-interface IUserData {
+interface IUserData extends IUser {
   id: number;
-  firstName: string;
-  familyName: string;
-  information: string;
-  joinedCompany: string;
-  home: boolean;
-  office: boolean;
-  intern: boolean;
-  extern: boolean;
-  roles: string;
-  level: string;
 }
 
 interface IUserCardProps {
