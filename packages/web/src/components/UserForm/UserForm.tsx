@@ -323,7 +323,7 @@ const UserForm = ({
                 size="lg"
               >
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
-                  {Object.keys(levels).map((level) => {
+                  {Object.values(levels).map((level) => {
                     return (
                       <Radio
                         key={level}

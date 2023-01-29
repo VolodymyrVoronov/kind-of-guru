@@ -16,7 +16,7 @@ const levels = Object.freeze({
   Unknown: "Unknown",
   Intern: "Intern",
   Junior: "Junior Developer",
-  Middle: "Mid-Senior Developer",
+  Middle: "Middle Developer",
   Senior: "Senior Developer",
   TeamLead: "Team Lead",
 });
