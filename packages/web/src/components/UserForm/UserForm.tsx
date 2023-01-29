@@ -8,7 +8,6 @@ import {
   Grid,
   Input,
   Loading,
-  Progress,
   Radio,
   Spacer,
   Textarea,
@@ -25,6 +24,7 @@ import roles from "../../constants/roles";
 
 import checkLimitReached from "../../helpers/checkLimitReached";
 import countSymbolsAmount from "../../helpers/countSymbolsAmount";
+import InputProgress from "../InputProgress/InputProgress";
 
 interface IFormData {
   firstName: string;
@@ -166,13 +166,9 @@ const UserForm = ({
                 status={firstNameLimitReached ? "error" : "default"}
               />
               {formData.firstName.length > 0 ? (
-                <Progress
+                <InputProgress
                   value={firstNameSymbolsLimit}
-                  color={firstNameLimitReached ? "error" : "success"}
-                  size="xs"
-                  css={{
-                    mt: 5,
-                  }}
+                  limitReached={firstNameLimitReached}
                 />
               ) : (
                 <span style={{ height: "9px" }} />
@@ -195,13 +191,9 @@ const UserForm = ({
                 status={familyNameLimitReached ? "error" : "default"}
               />
               {formData.familyName.length > 0 ? (
-                <Progress
+                <InputProgress
                   value={familyNameSymbolsLimit}
-                  color={familyNameLimitReached ? "error" : "success"}
-                  size="xs"
-                  css={{
-                    mt: 5,
-                  }}
+                  limitReached={familyNameLimitReached}
                 />
               ) : (
                 <span style={{ height: "9px" }} />
@@ -273,13 +265,9 @@ const UserForm = ({
                 status={informationLimitReached ? "error" : "default"}
               />
               {formData.information.length > 0 ? (
-                <Progress
+                <InputProgress
                   value={informationSymbolsLimit}
-                  color={informationLimitReached ? "error" : "success"}
-                  size="xs"
-                  css={{
-                    mt: 5,
-                  }}
+                  limitReached={informationLimitReached}
                 />
               ) : (
                 <span style={{ height: "9px" }} />
