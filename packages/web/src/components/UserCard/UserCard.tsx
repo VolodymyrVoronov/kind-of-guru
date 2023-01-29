@@ -38,6 +38,7 @@ interface IUserData {
   intern: boolean;
   extern: boolean;
   roles: string;
+  level: string;
 }
 
 interface IUserCardProps {
@@ -62,6 +63,7 @@ const UserCard = ({
     intern,
     extern,
     roles,
+    level,
   } = user;
 
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
@@ -134,9 +136,17 @@ const UserCard = ({
             </Text>
           </Grid>
 
+          {level && (
+            <Grid xs={12}>
+              <Text css={{ color: "$blue600", lineHeight: "15px" }}>
+                {level}
+              </Text>
+            </Grid>
+          )}
+
           {joinedCompany && (
             <Grid xs={12}>
-              <Text css={{ color: "$accents8" }}>
+              <Text css={{ color: "$accents8", lineHeight: "35px" }}>
                 Since: {reverseDateString(joinedCompany)}
               </Text>
             </Grid>

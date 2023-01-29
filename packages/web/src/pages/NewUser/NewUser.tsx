@@ -21,6 +21,7 @@ interface IUserData {
   intern: boolean;
   extern: boolean;
   roles: string;
+  level: string;
 }
 
 const NewUser = (): JSX.Element => {

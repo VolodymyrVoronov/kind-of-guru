@@ -10,6 +10,7 @@ CREATE TABLE "User" (
     "intern" BOOLEAN NOT NULL DEFAULT true,
     "extern" BOOLEAN NOT NULL DEFAULT false,
     "roles" TEXT NOT NULL,
+    "level" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );

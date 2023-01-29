@@ -12,4 +12,11 @@ const roles = Object.freeze({
   UI_Designer: "UI Designer",
 });
 
-export default roles;
+const positions = Object.freeze({
+  Intern: "Intern",
+  Junior: "Junior Developer",
+  Middle: "Mid-Senior Developer",
+  Senior: "Senior Developer",
+});
+
+export { roles, positions };

@@ -20,7 +20,7 @@ import {
   IoSaveSharp,
 } from "react-icons/io5";
 
-import roles from "../../constants/roles";
+import { positions, roles } from "../../constants/roles";
 
 import checkLimitReached from "../../helpers/checkLimitReached";
 import countSymbolsAmount from "../../helpers/countSymbolsAmount";
@@ -38,6 +38,7 @@ interface IFormData {
   intern: boolean;
   extern: boolean;
   roles: string;
+  level: string;
 }
 
 interface IUserFormProps {
@@ -61,6 +62,7 @@ const UserForm = ({
     intern: data?.intern ?? true,
     extern: data?.extern ?? false,
     roles: data?.roles ?? "",
+    level: data?.level ?? "",
   };
 
   const [formData, setFormData] = useState<IFormData>(initialState);
@@ -111,6 +113,10 @@ const UserForm = ({
     const rolesString = userRoles.join(",").toString();
 
     setFormData({ ...formData, roles: rolesString });
+  };
+
+  const onUserLevelChange = (value: string): void => {
+    setFormData({ ...formData, level: value });
   };
 
   const firstNameSymbolsLimit = countSymbolsAmount(formData.firstName, 25);
@@ -293,6 +299,42 @@ const UserForm = ({
                   })}
                 </div>
               </Checkbox.Group>
+            </Grid>
+          </Grid.Container>
+
+          <Grid.Container gap={2}>
+            <Grid>
+              <Radio.Group
+                orientation="horizontal"
+                label={
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      fontFamily: "inherit",
+                      color: "#000000",
+                    }}
+                  >
+                    Level
+                  </p>
+                }
+                defaultValue={formData.level}
+                name="level"
+                onChange={onUserLevelChange}
+                size="lg"
+              >
+                {Object.keys(positions).map((position) => {
+                  return (
+                    <Radio
+                      key={position}
+                      value={position}
+                      color="secondary"
+                      isSquared
+                    >
+                      {position}
+                    </Radio>
+                  );
+                })}
+              </Radio.Group>
             </Grid>
           </Grid.Container>
 

@@ -13,6 +13,7 @@ const User = z.object({
   intern: z.boolean().default(true),
   extern: z.boolean().default(false),
   roles: z.string(),
+  level: z.string(),
 });
 
 const UserWithId = User.extend({
@@ -53,6 +54,7 @@ export const appRouter = trpc
           intern: input.intern,
           extern: input.extern,
           roles: input.roles,
+          level: input.level,
         },
       });
     },
@@ -74,6 +76,7 @@ export const appRouter = trpc
           intern: input.intern,
           extern: input.extern,
           roles: input.roles,
+          level: input.level,
         },
       });
     },
