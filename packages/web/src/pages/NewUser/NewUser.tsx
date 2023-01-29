@@ -20,7 +20,7 @@ interface IUserData {
   office: boolean;
   intern: boolean;
   extern: boolean;
-  roles: string[];
+  roles: string;
 }
 
 const NewUser = (): JSX.Element => {

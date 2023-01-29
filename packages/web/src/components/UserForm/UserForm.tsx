@@ -8,6 +8,7 @@ import {
   Grid,
   Input,
   Loading,
+  Progress,
   Radio,
   Spacer,
   Textarea,
@@ -21,6 +22,9 @@ import {
 } from "react-icons/io5";
 
 import roles from "../../constants/roles";
+
+import checkLimitReached from "../../helpers/checkLimitReached";
+import countSymbolsAmount from "../../helpers/countSymbolsAmount";
 
 interface IFormData {
   firstName: string;
@@ -121,6 +125,21 @@ const UserForm = ({
     setFormData({ ...formData, roles: rolesString });
   };
 
+  const firstNameSymbolsLimit = countSymbolsAmount(formData.firstName, 25);
+  const firstNameLimitReached = checkLimitReached(formData.firstName, 25);
+  const firstNameLength = formData.firstName.length;
+
+  const familyNameSymbolsLimit = countSymbolsAmount(formData.familyName, 25);
+  const familyNameLimitReached = checkLimitReached(formData.familyName, 25);
+  const familyNameLength = formData.familyName.length;
+
+  const informationSymbolsLimit = countSymbolsAmount(formData.information, 250);
+  const informationLimitReached = checkLimitReached(formData.information, 250);
+  const informationLength = formData.information.length;
+
+  const anySymbolsLimitsReached =
+    firstNameLimitReached || familyNameLimitReached || informationLimitReached;
+
   return (
     <Container md>
       <Card
@@ -130,7 +149,7 @@ const UserForm = ({
       >
         <Card.Body>
           <Grid.Container gap={2}>
-            <Grid xs>
+            <Grid xs direction="column">
               <Input
                 name="firstName"
                 value={formData.firstName}
@@ -138,15 +157,28 @@ const UserForm = ({
                 clearable
                 color="default"
                 helperText="Required"
-                label="First name (max. 25)"
+                label={`First name (max. ${firstNameLength}/25)`}
                 placeholder="Enter first name"
                 size="xl"
                 fullWidth
                 required
                 shadow
+                status={firstNameLimitReached ? "error" : "default"}
               />
+              {formData.firstName.length > 0 ? (
+                <Progress
+                  value={firstNameSymbolsLimit}
+                  color={firstNameLimitReached ? "error" : "success"}
+                  size="xs"
+                  css={{
+                    mt: 5,
+                  }}
+                />
+              ) : (
+                <span style={{ height: "9px" }} />
+              )}
             </Grid>
-            <Grid xs>
+            <Grid xs direction="column">
               <Input
                 name="familyName"
                 value={formData.familyName}
@@ -154,13 +186,26 @@ const UserForm = ({
                 clearable
                 color="default"
                 helperText="Required"
-                label="Family name (max. 25)"
+                label={`Family name (max. ${familyNameLength}/25)`}
                 placeholder="Enter family name"
                 size="xl"
                 fullWidth
                 required
                 shadow
+                status={familyNameLimitReached ? "error" : "default"}
               />
+              {formData.familyName.length > 0 ? (
+                <Progress
+                  value={familyNameSymbolsLimit}
+                  color={familyNameLimitReached ? "error" : "success"}
+                  size="xs"
+                  css={{
+                    mt: 5,
+                  }}
+                />
+              ) : (
+                <span style={{ height: "9px" }} />
+              )}
             </Grid>
           </Grid.Container>
 
@@ -214,18 +259,31 @@ const UserForm = ({
               />
             </Grid>
 
-            <Grid xs>
+            <Grid xs direction="column">
               <Textarea
                 name="information"
                 value={formData.information}
                 onChange={onInputChange}
-                label="Information (max. 250)"
+                label={`Information (max. ${informationLength}/250)`}
                 placeholder="Enter some additional information"
                 fullWidth
                 size="xl"
                 rows={4}
                 shadow
+                status={informationLimitReached ? "error" : "default"}
               />
+              {formData.information.length > 0 ? (
+                <Progress
+                  value={informationSymbolsLimit}
+                  color={informationLimitReached ? "error" : "success"}
+                  size="xs"
+                  css={{
+                    mt: 5,
+                  }}
+                />
+              ) : (
+                <span style={{ height: "9px" }} />
+              )}
             </Grid>
           </Grid.Container>
 
@@ -273,7 +331,10 @@ const UserForm = ({
                 color="gradient"
                 iconRight={!isLoading && <IoSaveSharp />}
                 disabled={
-                  isLoading || !formData.firstName || !formData.familyName
+                  isLoading ||
+                  !formData.firstName ||
+                  !formData.familyName ||
+                  anySymbolsLimitsReached
                 }
               >
                 {isLoading ? (
