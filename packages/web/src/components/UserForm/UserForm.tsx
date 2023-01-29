@@ -20,7 +20,7 @@ import {
   IoSaveSharp,
 } from "react-icons/io5";
 
-import { positions, roles } from "../../constants/roles";
+import { levels, roles } from "../../constants/levels";
 
 import checkLimitReached from "../../helpers/checkLimitReached";
 import countSymbolsAmount from "../../helpers/countSymbolsAmount";
@@ -62,7 +62,7 @@ const UserForm = ({
     intern: data?.intern ?? true,
     extern: data?.extern ?? false,
     roles: data?.roles ?? "",
-    level: data?.level ?? "",
+    level: data?.level ?? "Unknown",
   };
 
   const [formData, setFormData] = useState<IFormData>(initialState);
@@ -322,15 +322,15 @@ const UserForm = ({
                 onChange={onUserLevelChange}
                 size="lg"
               >
-                {Object.keys(positions).map((position) => {
+                {Object.keys(levels).map((level) => {
                   return (
                     <Radio
-                      key={position}
-                      value={position}
+                      key={level}
+                      value={level}
                       color="secondary"
                       isSquared
                     >
-                      {position}
+                      {level}
                     </Radio>
                   );
                 })}

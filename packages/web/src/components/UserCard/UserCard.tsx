@@ -138,8 +138,16 @@ const UserCard = ({
 
           {level && (
             <Grid xs={12}>
-              <Text css={{ color: "$blue600", lineHeight: "15px" }}>
-                {level}
+              <Text
+                css={{
+                  lineHeight: "10px",
+                  color: "$blue600",
+                }}
+              >
+                Level:{" "}
+                <Text b css={{ color: "$blue600" }}>
+                  {level}
+                </Text>
               </Text>
             </Grid>
           )}

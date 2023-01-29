@@ -12,11 +12,13 @@ const roles = Object.freeze({
   UI_Designer: "UI Designer",
 });
 
-const positions = Object.freeze({
+const levels = Object.freeze({
+  Unknown: "Unknown",
   Intern: "Intern",
   Junior: "Junior Developer",
   Middle: "Mid-Senior Developer",
   Senior: "Senior Developer",
+  TeamLead: "Team Lead",
 });
 
-export { roles, positions };
+export { roles, levels };
