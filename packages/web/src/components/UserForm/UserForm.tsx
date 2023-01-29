@@ -322,18 +322,20 @@ const UserForm = ({
                 onChange={onUserLevelChange}
                 size="lg"
               >
-                {Object.keys(levels).map((level) => {
-                  return (
-                    <Radio
-                      key={level}
-                      value={level}
-                      color="secondary"
-                      isSquared
-                    >
-                      {level}
-                    </Radio>
-                  );
-                })}
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
+                  {Object.keys(levels).map((level) => {
+                    return (
+                      <Radio
+                        key={level}
+                        value={level}
+                        color="secondary"
+                        isSquared
+                      >
+                        {level}
+                      </Radio>
+                    );
+                  })}
+                </div>
               </Radio.Group>
             </Grid>
           </Grid.Container>
