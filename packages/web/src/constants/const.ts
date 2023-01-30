@@ -22,6 +22,7 @@ const levels = Object.freeze({
 });
 
 const clients = Object.freeze({
+  Unknown: "Unknown",
   Audi: "Audi",
   BMW: "BMW",
   Porsche: "Porsche",
@@ -34,4 +35,17 @@ const clients = Object.freeze({
   DPD: "DPD",
 });
 
-export { roles, levels, clients };
+const priorities = Object.freeze({
+  low: "Low",
+  medium: "Medium",
+  height: "Height",
+  severe: "Severe",
+});
+
+const packages = Object.freeze({
+  basic: "Basic",
+  standard: "Standard",
+  premium: "Premium",
+});
+
+export { roles, levels, clients, priorities, packages };

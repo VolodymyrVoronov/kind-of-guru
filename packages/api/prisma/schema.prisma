@@ -29,9 +29,9 @@ model Project {
   client      String
   information String
   priority    String
-  level       String
-  start       DateTime
-  end         DateTime
+  packageType String
+  start       String
+  end         String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

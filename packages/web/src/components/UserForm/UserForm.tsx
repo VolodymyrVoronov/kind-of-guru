@@ -195,10 +195,10 @@ const UserForm = ({
                   width: "100%",
                 }}
               >
-                <Radio value="home" name="home" color="secondary">
+                <Radio value="home" name="home" color="secondary" isSquared>
                   <IoHomeSharp /> <Spacer x={0.5} /> From home
                 </Radio>
-                <Radio value="office" name="office" color="secondary">
+                <Radio value="office" name="office" color="secondary" isSquared>
                   <IoBusinessSharp /> <Spacer x={0.5} /> From office
                 </Radio>
               </Radio.Group>
@@ -213,10 +213,10 @@ const UserForm = ({
                   width: "100%",
                 }}
               >
-                <Radio value="intern" name="intern" color="secondary">
+                <Radio value="intern" name="intern" color="secondary" isSquared>
                   <IoEnterSharp /> <Spacer x={0.5} /> Intern
                 </Radio>
-                <Radio value="extern" name="extern" color="secondary">
+                <Radio value="extern" name="extern" color="secondary" isSquared>
                   <IoExitSharp /> <Spacer x={0.5} /> Extern
                 </Radio>
               </Radio.Group>
