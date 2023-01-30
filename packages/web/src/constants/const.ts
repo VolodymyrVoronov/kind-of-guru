@@ -38,7 +38,7 @@ const clients = Object.freeze({
 const priorities = Object.freeze({
   low: "Low",
   medium: "Medium",
-  height: "Height",
+  high: "High",
   severe: "Severe",
 });
 

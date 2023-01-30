@@ -18,6 +18,7 @@ import IProject from "../../types/Project";
 
 import countSymbolsAmount from "../../helpers/countSymbolsAmount";
 import checkLimitReached from "../../helpers/checkLimitReached";
+import getIcon from "../../helpers/getIcon";
 
 import InputProgress from "../InputProgress/InputProgress";
 
@@ -74,6 +75,8 @@ const ProjectForm = ({
 
   const anySymbolsLimitsReached =
     projectNameLimitReached || informationLimitReached;
+
+  console.log(formData);
 
   return (
     <Container md>
@@ -232,6 +235,7 @@ const ProjectForm = ({
                         isSquared
                       >
                         {priority}
+                        {getIcon(priority.toLowerCase())}
                       </Radio>
                     );
                   })}
