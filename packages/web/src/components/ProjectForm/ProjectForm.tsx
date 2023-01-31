@@ -9,6 +9,7 @@ import {
   Loading,
   Radio,
   Spacer,
+  Text,
   Textarea,
 } from "@nextui-org/react";
 import { IoSaveSharp } from "react-icons/io5";
@@ -18,7 +19,7 @@ import IProject from "../../types/Project";
 
 import countSymbolsAmount from "../../helpers/countSymbolsAmount";
 import checkLimitReached from "../../helpers/checkLimitReached";
-import getIcon from "../../helpers/getIcon";
+import getPriorityIcon from "../../helpers/getPriorityIcon";
 
 import InputProgress from "../InputProgress/InputProgress";
 
@@ -235,7 +236,14 @@ const ProjectForm = ({
                         isSquared
                       >
                         {priority}
-                        {getIcon(priority.toLowerCase())}
+                        <span
+                          style={{
+                            display: "flex",
+                            marginLeft: 5,
+                          }}
+                        >
+                          {getPriorityIcon(priority.toLowerCase())}
+                        </span>
                       </Radio>
                     );
                   })}
