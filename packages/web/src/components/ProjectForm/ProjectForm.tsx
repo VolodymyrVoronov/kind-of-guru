@@ -77,8 +77,6 @@ const ProjectForm = ({
   const anySymbolsLimitsReached =
     projectNameLimitReached || informationLimitReached;
 
-  console.log(formData);
-
   return (
     <Container md>
       <Card
@@ -132,7 +130,7 @@ const ProjectForm = ({
                 <Spacer y={2} />
 
                 <Input
-                  name="End"
+                  name="end"
                   value={formData.end}
                   onChange={onInputChange}
                   fullWidth
