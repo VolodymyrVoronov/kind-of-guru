@@ -18,6 +18,7 @@ import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/Cont
 import AnimatedWrapper from "../../components/AnimatedWrapper/AnimatedWrapper";
 import BadgeWrapper from "../../components/BadgeWrapper/BadgeWrapper";
 import ProjectForm from "../../components/ProjectForm/ProjectForm";
+import ProjectCard from "../../components/ProjectCard/ProjectCard";
 
 interface IProjectData extends IProject {
   id?: number;
@@ -222,12 +223,11 @@ const Projects = (): JSX.Element => {
               {dataProjects?.map((project) => {
                 return (
                   <Grid xs={12} key={project.id}>
-                    {project.projectName}
-                    {/* <ProjectCard
+                    <ProjectCard
                       project={project}
                       onDeleteClick={onDeleteClick}
                       onEditClick={onEditClick}
-                    /> */}
+                    />
                   </Grid>
                 );
               })}
