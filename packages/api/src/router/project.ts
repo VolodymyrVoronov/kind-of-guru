@@ -52,4 +52,36 @@ export const projectRouter = trpc
         },
       });
     },
+  })
+  .mutation("updateProject", {
+    input: ProjectWithId,
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.project.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          projectName: input.projectName,
+          client: input.client,
+          information: input.information,
+          priority: input.priority,
+          packageType: input.packageType,
+          start: input.start,
+          end: input.end,
+        },
+      });
+    },
+  })
+  .mutation("deleteProject", {
+    input: z.object({
+      id: z.number(),
+    }),
+
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.project.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    },
   });
