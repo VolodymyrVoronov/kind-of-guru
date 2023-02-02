@@ -88,7 +88,7 @@ const UserCard = ({
     >
       <CustomModal
         title="Confirm"
-        text="Are you sure you want to delete this user ? By doing this, you will not be able to recover the data."
+        text="Are you sure you want to delete this user? By doing this, you will not be able to recover the data."
         isVisible={isPopoverVisible}
         onClose={onCancelButtonClick}
         cancelButton={
