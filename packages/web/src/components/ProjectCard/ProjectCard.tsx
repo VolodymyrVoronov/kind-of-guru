@@ -104,7 +104,8 @@ const ProjectCard = ({
               m: 0,
             }}
           >
-            Project: <Spacer x={0.5} /> <ImPaintFormat display="flex" />
+            Project: <Spacer x={0.5} />{" "}
+            <ImPaintFormat display="flex" size="16px" />
           </Text>
           <Text
             h3
@@ -126,7 +127,7 @@ const ProjectCard = ({
               m: 0,
             }}
           >
-            Client: <Spacer x={0.5} /> <ImMan display="flex" />
+            Client: <Spacer x={0.5} /> <ImMan display="flex" size="16px" />
           </Text>
           <Text
             h3
@@ -151,7 +152,7 @@ const ProjectCard = ({
               >
                 Start: <Spacer x={0.5} />
                 <Tooltip color="invert" content="Start date of the project">
-                  <ImEnter display="flex" />
+                  <ImEnter display="flex" size="16px" />
                 </Tooltip>
               </Text>
               {start ? (
@@ -186,7 +187,7 @@ const ProjectCard = ({
               >
                 End: <Spacer x={0.5} />
                 <Tooltip color="invert" content="End date of the project">
-                  <ImExit display="flex" />
+                  <ImExit display="flex" size="16px" />
                 </Tooltip>
               </Text>
               {end ? (
@@ -227,7 +228,7 @@ const ProjectCard = ({
             }}
           >
             Information: <Spacer x={0.5} />
-            <ImInfo display="flex" />
+            <ImInfo display="flex" size="16px" />
           </Text>
           {information ? (
             <Text b>{information}</Text>
