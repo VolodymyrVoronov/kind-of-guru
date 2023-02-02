@@ -223,7 +223,7 @@ const ProjectCard = ({
             h4
             css={{
               d: "flex",
-              alignItems: "center",
+              alignItems: "baseline",
               m: 0,
             }}
           >
