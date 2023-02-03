@@ -1,21 +1,36 @@
-import { Button } from "@nextui-org/react";
+import { useLayoutEffect, useState } from "react";
+import { Button, Container, Grid } from "@nextui-org/react";
 import { IoPersonAddSharp } from "react-icons/io5";
+
+import IUser from "../../types/User";
+import IProject from "../../types/Project";
+
+import getDateString from "../../helpers/getDateString";
 
 import Calendar from "../../components/Calendar/Calendar";
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
 import TimeLine from "../../components/TimeLine/TimeLine";
+import UsersList from "../../components/UsersList/UsersList";
 
 import styles from "./Main.module.css";
 
 const Main = (): JSX.Element => {
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [projects, setProjects] = useState<IProject[]>([]);
+  const [date, setDate] = useState(getDateString());
+
   const onAddUserButtonClick = (): void => {
     console.log("add user");
+  };
+
+  const onDateClick = (d: string): void => {
+    setDate(d);
   };
 
   return (
     <div className={styles.main}>
       <div className={styles.main__calendar}>
-        <Calendar />
+        <Calendar onDateClick={onDateClick} />
       </div>
       <ContainerHeightWrapper
         className={styles.main__timetable}
@@ -33,244 +48,34 @@ const Main = (): JSX.Element => {
           />
           <TimeLine />
         </div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-        impedit, possimus placeat culpa perferendis minus incidunt molestiae
-        perspiciatis aspernatur libero officiis fugiat, maxime quam. Numquam
-        sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Praesentium impedit, possimus placeat culpa
-        perferendis minus incidunt molestiae perspiciatis aspernatur libero
-        officiis fugiat, maxime quam. Numquam sequi enim dolorum cum sunt! Lorem
-        ipsum dolor sit amet consectetur adipisicing elit. Praesentium impedit,
-        possimus placeat culpa perferendis minus incidunt molestiae perspiciatis
-        aspernatur libero officiis fugiat, maxime quam. Numquam sequi enim
-        dolorum cum sunt! Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Praesentium impedit, possimus placeat culpa perferendis minus
-        incidunt molestiae perspiciatis aspernatur libero officiis fugiat,
-        maxime quam. Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit
-        amet consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Praesentium impedit, possimus placeat
-        culpa perferendis minus incidunt molestiae perspiciatis aspernatur
-        libero officiis fugiat, maxime quam. Numquam sequi enim dolorum cum
-        sunt! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium impedit, possimus placeat culpa perferendis minus incidunt
-        molestiae perspiciatis aspernatur libero officiis fugiat, maxime quam.
-        Numquam sequi enim dolorum cum sunt!
+
+        <Grid.Container
+          css={{
+            d: "flex",
+          }}
+          style={{
+            height: `${window.innerHeight - 108}px`,
+          }}
+        >
+          <Grid
+            css={{
+              d: "flex",
+              w: 144,
+            }}
+          >
+            <UsersList />
+          </Grid>
+          <Grid
+            css={{
+              d: "flex",
+              flexGrow: 1,
+              background:
+                "linear-gradient(-45deg, #0072f522 -20%, #ff4ecd24 80%)",
+            }}
+          >
+            asd
+          </Grid>
+        </Grid.Container>
       </ContainerHeightWrapper>
     </div>
   );

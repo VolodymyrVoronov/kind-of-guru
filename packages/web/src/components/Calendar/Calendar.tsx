@@ -1,13 +1,15 @@
 import InfiniteCalendar from "react-infinite-calendar";
 
+import getDateString from "../../helpers/getDateString";
+
 import "react-infinite-calendar/styles.css";
 import "./Calendar.css";
 
 interface ICalendarProps {
-  height: number;
+  onDateClick: (e: string) => void;
 }
 
-const Calendar = (): JSX.Element => {
+const Calendar = ({ onDateClick: oDClick }: ICalendarProps): JSX.Element => {
   const today = new Date();
   const lastWeek = new Date(
     today.getFullYear(),
@@ -16,9 +18,7 @@ const Calendar = (): JSX.Element => {
   );
 
   const onDateClick = (e: Date): void => {
-    const selectedDate = e.toLocaleDateString();
-
-    console.log(selectedDate);
+    oDClick(getDateString(e));
   };
 
   const calendarHeight = window.innerHeight - 130 - 76;
