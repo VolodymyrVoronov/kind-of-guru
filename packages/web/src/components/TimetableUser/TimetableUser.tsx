@@ -3,11 +3,11 @@ import { Container } from "@nextui-org/react";
 
 import IUser from "../../types/User";
 
-interface IUsersList {
+interface ITimetableUser {
   users?: IUser[];
 }
 
-const UsersList = ({ users }: IUsersList): JSX.Element => {
+const TimetableUser = ({ users }: ITimetableUser): JSX.Element => {
   return (
     <Container
       css={{
@@ -18,9 +18,9 @@ const UsersList = ({ users }: IUsersList): JSX.Element => {
         borderRight: "1px solid white",
       }}
     >
-      UsersList
+      TimetableUser
     </Container>
   );
 };
 
-export default UsersList;
+export default TimetableUser;
