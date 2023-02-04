@@ -11,6 +11,7 @@ import Calendar from "../../components/Calendar/Calendar";
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
 import TimeLine from "../../components/TimeLine/TimeLine";
 import UsersList from "../../components/UsersList/UsersList";
+import TimetableGrid from "../../components/TimetableGrid/TimetableGrid";
 
 import styles from "./Main.module.css";
 
@@ -52,29 +53,35 @@ const Main = (): JSX.Element => {
         <Grid.Container
           css={{
             d: "flex",
-          }}
-          style={{
+            fd: "column",
             height: `${window.innerHeight - 108}px`,
+            background:
+              "linear-gradient(-45deg, #0072f522 -20%, #ff4ecd24 80%)",
           }}
         >
-          <Grid
+          <Grid.Container
             css={{
               d: "flex",
-              w: 144,
+              borderBottom: "1px solid white",
             }}
           >
-            <UsersList />
-          </Grid>
-          <Grid
-            css={{
-              d: "flex",
-              flexGrow: 1,
-              background:
-                "linear-gradient(-45deg, #0072f522 -20%, #ff4ecd24 80%)",
-            }}
-          >
-            asd
-          </Grid>
+            <Grid
+              css={{
+                d: "flex",
+                w: 144,
+              }}
+            >
+              <UsersList />
+            </Grid>
+            <Grid
+              css={{
+                d: "flex",
+                flexGrow: 1,
+              }}
+            >
+              <TimetableGrid />
+            </Grid>
+          </Grid.Container>
         </Grid.Container>
       </ContainerHeightWrapper>
     </div>
