@@ -14,3 +14,23 @@ CREATE TABLE "User" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );
+
+-- CreateTable
+CREATE TABLE "Project" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "projectName" TEXT NOT NULL,
+    "client" TEXT NOT NULL,
+    "information" TEXT NOT NULL,
+    "priority" TEXT NOT NULL,
+    "packageType" TEXT NOT NULL,
+    "start" TEXT NOT NULL,
+    "end" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Timetable" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "timetableDate" TEXT NOT NULL
+);

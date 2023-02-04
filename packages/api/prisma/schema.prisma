@@ -35,3 +35,9 @@ model Project {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Timetable {
+  id            Int    @id @default(autoincrement())
+  timetableDate String
+  users         String
+}
