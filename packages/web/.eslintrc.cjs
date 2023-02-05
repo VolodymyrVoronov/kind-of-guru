@@ -38,6 +38,11 @@ module.exports = {
         allowSingleExtends: true,
       },
     ],
+    "no-param-reassign": [
+      {
+        props: true,
+      },
+    ],
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
   },
