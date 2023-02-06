@@ -8,8 +8,12 @@ interface IUserData extends IUser {
   id: number;
 }
 
-interface IUserTimetable extends IUserData {
-  projects: IProject[];
+export interface IProjectTimeTable extends IProject {
+  timetableCoords: ReactGridLayout.Layout[];
+}
+
+export interface IUserTimetable extends IUserData {
+  projects: IProjectTimeTable[];
 }
 
 interface AppState {
@@ -18,6 +22,7 @@ interface AppState {
   timetableDate: string;
   setUsers: (usersData: IUserData[]) => void;
   setTimetableUsers: (id: number) => void;
+  setTimetableDate: (date: string) => void;
 }
 
 const useAppStore = create<AppState>((set, get) => ({
@@ -49,9 +54,20 @@ const useAppStore = create<AppState>((set, get) => ({
       set(
         produce((state: AppState) => {
           state.timetableUsers.push(newUser);
+          state.timetableUsers.sort((a, b) =>
+            a.firstName.localeCompare(b.firstName)
+          );
         })
       );
     }
+  },
+
+  setTimetableDate: (date: string): void => {
+    set(
+      produce((state: AppState) => {
+        state.timetableDate = date;
+      })
+    );
   },
 }));
 

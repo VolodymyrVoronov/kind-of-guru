@@ -31,14 +31,21 @@ interface IUserData extends IUser {
 }
 
 const Main = (): JSX.Element => {
-  const { setUsers, setTimetableUsers, users, timetableUsers } = useAppStore();
+  const {
+    setUsers,
+    setTimetableUsers,
+    setTimetableDate,
+    users,
+    timetableUsers,
+    timetableDate,
+  } = useAppStore();
 
   const { setVisible, bindings } = useModal();
 
   const utils = trpc.useContext();
 
   // const [timetableUsers, setTimetableUsers] = useState<IUser[]>([]);
-  const [timetableDate, setTimetableDate] = useState(getDateString());
+  // const [timetableDate, setTimetableDate] = useState(getDateString());
 
   const {
     data: dataUsers,
@@ -46,6 +53,22 @@ const Main = (): JSX.Element => {
     isError: isErrorFetchUsers,
     error: errorFetchUsers,
   } = trpc.useQuery(["getUsers"]);
+
+  const {
+    data: dataTimetable,
+    isLoading: isLoadingFetchTimetable,
+    isSuccess: isSuccessFetchTimetable,
+    isError: isErrorFetchTimetable,
+    error: errorFetchTimetable,
+  } = trpc.useQuery(["getTimetable", { timetableDate }]);
+
+  const {
+    mutate,
+    isLoading: isLoadingCreateTimetable,
+    isSuccess: isSuccessCreateTimetable,
+    isError: isErrorCreateTimetable,
+    error: errorCreateTimetable,
+  } = trpc.useMutation(["createTimetable"]);
 
   const onAddUserButtonClick = (): void => {
     setVisible(true);
@@ -56,15 +79,9 @@ const Main = (): JSX.Element => {
   };
 
   const onUserCardMiniClick = (id: number): void => {
-    console.log(id);
     setTimetableUsers(id);
-
     setVisible(false);
   };
-
-  useEffect(() => {
-    // console.log(timetableDate);
-  }, [timetableDate]);
 
   useEffect(() => {
     if (!isLoadingFetchUsers && dataUsers) {
@@ -72,8 +89,29 @@ const Main = (): JSX.Element => {
     }
   }, [isLoadingFetchUsers]);
 
-  console.log("users", users);
+  useEffect(() => {
+    setTimetableDate(getDateString());
+  }, []);
+
+  // useEffect(() => {
+  //   const newTimetable = {
+  //     timetableDate,
+  //     users: JSON.stringify(timetableUsers),
+  //   };
+
+  //   mutate(newTimetable);
+  // }, [timetableUsers]);
+
+  // useEffect(() => {
+  //   if (isSuccessCreateTimetable) {
+  //     utils.invalidateQueries();
+  //   }
+  // }, [isSuccessCreateTimetable]);
+
+  // console.log("users", users);
   console.log("timetableUsers", timetableUsers);
+  // console.log("timetableDate", timetableDate);
+  // console.log("dataTimetable", dataTimetable);
 
   return (
     <div className={styles.main}>
@@ -142,8 +180,13 @@ const Main = (): JSX.Element => {
               "linear-gradient(-45deg, #0072f522 -20%, #ff4ecd24 80%)",
           }}
         >
-          <AddUserInfoBlock />
-          {/* <TimetableUserBlock /> */}
+          {timetableUsers.length > 0 ? (
+            timetableUsers.map((u) => {
+              return <TimetableUserBlock key={u.id} timetableUser={u} />;
+            })
+          ) : (
+            <AddUserInfoBlock />
+          )}
         </Grid.Container>
       </ContainerHeightWrapper>
     </div>

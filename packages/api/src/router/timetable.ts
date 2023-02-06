@@ -16,13 +16,13 @@ export const timetableRouter = trpc
   .router<Context>()
   .query("getTimetable", {
     input: z.object({
-      id: z.number(),
+      timetableDate: z.string(),
     }),
 
     async resolve({ input, ctx }) {
-      return await ctx.prisma.timetable.findUnique({
+      return await ctx.prisma.timetable.findFirst({
         where: {
-          id: input.id,
+          timetableDate: input.timetableDate,
         },
       });
     },

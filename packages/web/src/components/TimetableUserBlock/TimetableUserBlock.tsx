@@ -1,10 +1,20 @@
 import React from "react";
 import { Grid } from "@nextui-org/react";
 
+import { IUserTimetable } from "../../store/app.store";
+
 import TimetableUser from "../TimetableUser/TimetableUser";
 import TimetableGrid from "../TimetableGrid/TimetableGrid";
 
-const TimetableUserBlock = (): JSX.Element => {
+interface ITimetableUserBlockProps {
+  timetableUser: IUserTimetable;
+}
+
+const TimetableUserBlock = ({
+  timetableUser,
+}: ITimetableUserBlockProps): JSX.Element => {
+  const { projects } = timetableUser;
+
   return (
     <div>
       <Grid.Container
@@ -19,7 +29,7 @@ const TimetableUserBlock = (): JSX.Element => {
             w: 144,
           }}
         >
-          <TimetableUser />
+          <TimetableUser user={timetableUser} />
         </Grid>
         <Grid
           css={{
