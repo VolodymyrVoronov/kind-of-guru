@@ -6,6 +6,7 @@ import {
   useModal,
   Text,
   Container,
+  Loading,
 } from "@nextui-org/react";
 import { IoPersonAddSharp } from "react-icons/io5";
 
@@ -48,11 +49,12 @@ const Main = (): JSX.Element => {
   // const [timetableDate, setTimetableDate] = useState(getDateString());
 
   const {
+    refetch,
     data: dataUsers,
     isLoading: isLoadingFetchUsers,
     isError: isErrorFetchUsers,
     error: errorFetchUsers,
-  } = trpc.useQuery(["getUsers"]);
+  } = trpc.useQuery(["getUsers"], { enabled: false });
 
   const {
     data: dataTimetable,
@@ -60,7 +62,7 @@ const Main = (): JSX.Element => {
     isSuccess: isSuccessFetchTimetable,
     isError: isErrorFetchTimetable,
     error: errorFetchTimetable,
-  } = trpc.useQuery(["getTimetable", { timetableDate }]);
+  } = trpc.useQuery(["getTimetable", { timetableDate }], { enabled: false });
 
   const {
     mutate,
@@ -72,6 +74,7 @@ const Main = (): JSX.Element => {
 
   const onAddUserButtonClick = (): void => {
     setVisible(true);
+    refetch();
   };
 
   const onDateClick = (d: string): void => {
@@ -84,7 +87,7 @@ const Main = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (!isLoadingFetchUsers && dataUsers) {
+    if (!isLoadingFetchUsers && dataUsers && bindings.open) {
       setUsers(dataUsers);
     }
   }, [isLoadingFetchUsers]);
@@ -136,7 +139,16 @@ const Main = (): JSX.Element => {
               p: 0,
             }}
           >
-            {users &&
+            {isLoadingFetchUsers ? (
+              <Container
+                css={{
+                  d: "flex",
+                  jc: "center",
+                }}
+              >
+                <Loading>Loading...</Loading>
+              </Container>
+            ) : (
               users.map((user) => {
                 return (
                   <UserCardMini
@@ -145,7 +157,8 @@ const Main = (): JSX.Element => {
                     onUserCardMiniClick={onUserCardMiniClick}
                   />
                 );
-              })}
+              })
+            )}
           </Container>
         </Modal.Body>
       </Modal>

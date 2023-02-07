@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Button,
@@ -14,13 +14,32 @@ import IUser from "../../types/User";
 
 import extractFirstLetter from "../../helpers/extractFirstLetter";
 
-interface ITimetableUser {
-  user: IUser;
+interface IUserData extends IUser {
+  id: number;
 }
 
-const TimetableUser = ({ user }: ITimetableUser): JSX.Element => {
+interface ITimetableUser {
+  user: IUserData;
+  onDeleteClick: (id: number) => void;
+}
+
+const TimetableUser = ({
+  user,
+  onDeleteClick,
+}: ITimetableUser): JSX.Element => {
+  const [isHover, setIsHover] = useState(false);
+
+  const onCardMouseEnter = (): void => setIsHover(true);
+  const onCardMouseLeave = (): void => setIsHover(false);
+
+  const onDeleteButtonClick = (): void => {
+    onDeleteClick(user.id);
+  };
+
   return (
     <Container
+      onMouseEnter={onCardMouseEnter}
+      onMouseLeave={onCardMouseLeave}
       css={{
         m: 0,
         p: 0,
@@ -78,7 +97,8 @@ const TimetableUser = ({ user }: ITimetableUser): JSX.Element => {
 
         <Card.Body css={{ p: "0 5px 5px 5px" }}>
           <Button
-            css={{ fs: 14 }}
+            onPress={onDeleteButtonClick}
+            css={{ fs: 14, opacity: isHover ? 1 : 0.2 }}
             color="error"
             bordered
             auto
