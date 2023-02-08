@@ -69,7 +69,9 @@ const TimetableGrid = ({
     >
       {layout.map((layoutItem, i) => (
         <div key={layoutItem.i} data-grid={layoutItem} className="block">
-          {/* <div>{projects[+layoutItem.i - 1].client}</div> */}
+          {projects[+layoutItem.i - 1] && (
+            <div>{projects[+layoutItem.i - 1].client}</div>
+          )}
           {layoutItem.i}
         </div>
       ))}
