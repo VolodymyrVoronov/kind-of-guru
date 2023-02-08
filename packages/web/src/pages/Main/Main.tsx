@@ -77,9 +77,13 @@ const Main = (): JSX.Element => {
     refetch();
   };
 
-  const onDateClick = (d: string): void => {
-    setTimetableDate(d);
-  };
+  const onDateClick = useMemo(
+    () =>
+      (d: string): void => {
+        setTimetableDate(d);
+      },
+    []
+  );
 
   const onUserCardMiniClick = (id: number): void => {
     setTimetableUsers(id);
@@ -91,10 +95,6 @@ const Main = (): JSX.Element => {
       setUsers(dataUsers);
     }
   }, [isLoadingFetchUsers]);
-
-  useEffect(() => {
-    setTimetableDate(getDateString());
-  }, []);
 
   // useEffect(() => {
   //   const newTimetable = {
@@ -113,7 +113,7 @@ const Main = (): JSX.Element => {
 
   // console.log("users", users);
   console.log("timetableUsers", timetableUsers);
-  // console.log("timetableDate", timetableDate);
+  console.log("timetableDate", timetableDate);
   // console.log("dataTimetable", dataTimetable);
 
   return (

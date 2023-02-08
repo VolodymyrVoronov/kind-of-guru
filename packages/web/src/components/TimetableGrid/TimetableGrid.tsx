@@ -9,11 +9,15 @@ import "react-resizable/css/styles.css";
 
 interface ITimetableGridProps {
   projects: IProjectTimeTable[];
+  onGridChange: (changedLayout: Layout[]) => void;
 }
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-const TimetableGrid = ({ projects }: ITimetableGridProps): JSX.Element => {
+const TimetableGrid = ({
+  projects,
+  onGridChange,
+}: ITimetableGridProps): JSX.Element => {
   const [mounted, setMounted] = useState(false);
   const [layout, setLayout] = useState<Layout[]>([]);
 
@@ -25,6 +29,8 @@ const TimetableGrid = ({ projects }: ITimetableGridProps): JSX.Element => {
     let newLayout = [] as Layout[];
 
     projects.forEach((p) => {
+      console.log("FORE EACH", p.timetableCoords);
+
       return newLayout.push(p.timetableCoords as unknown as Layout);
     });
 
@@ -33,11 +39,12 @@ const TimetableGrid = ({ projects }: ITimetableGridProps): JSX.Element => {
     }
   }, [projects]);
 
-  const onLayoutChange = (c: Layout[]) => {
-    setLayout(c);
+  const onLayoutChange = (l: Layout[]) => {
+    onGridChange(l);
+    // setLayout(l);
   };
 
-  console.log("layout", layout);
+  console.log("GRID", projects);
 
   return (
     <ResponsiveReactGridLayout
@@ -55,14 +62,14 @@ const TimetableGrid = ({ projects }: ITimetableGridProps): JSX.Element => {
       style={{
         display: "flex",
         flexGrow: 1,
-        minHeight: "130px",
+        minHeight: "100%",
         overflow: "auto",
         resize: "vertical",
       }}
     >
       {layout.map((layoutItem, i) => (
         <div key={layoutItem.i} data-grid={layoutItem} className="block">
-          {i}
+          {/* <div>{projects[+layoutItem.i - 1].client}</div> */}
           {layoutItem.i}
         </div>
       ))}

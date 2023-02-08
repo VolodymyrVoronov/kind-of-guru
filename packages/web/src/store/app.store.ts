@@ -1,10 +1,12 @@
 import { create } from "zustand";
 import produce from "immer";
+import { Layout } from "react-grid-layout";
 
 import IUser from "../types/User";
 import IProject from "../types/Project";
 
 import createGridInitialLayout from "./../helpers/createGridInitialLayout";
+import getDateString from "../helpers/getDateString";
 
 interface IUserData extends IUser {
   id: number;
@@ -15,6 +17,7 @@ interface IProjectData extends IProject {
 }
 
 export interface IProjectTimeTable extends IProject {
+  id: number;
   timetableCoords: ReactGridLayout.Layout[];
 }
 
@@ -29,16 +32,21 @@ interface AppState {
   timetableDate: string;
   setUsers: (usersData: IUserData[]) => void;
   setProjects: (projectsData: IProjectData[]) => void;
+  deleteTimetableUser: (userId: number) => void;
   setTimetableUsers: (id: number) => void;
   setTimetableDate: (date: string) => void;
-  updateTimetableUser: (userId: number, projectId: number) => void;
+  addProjectToTimetableUser: (userId: number, projectId: number) => void;
+  updatedUserProjectTimetable: (
+    userId: number,
+    changedLayout: Layout[]
+  ) => void;
 }
 
 const useAppStore = create<AppState>((set, get) => ({
   users: [],
   projects: [],
   timetableUsers: [],
-  timetableDate: "",
+  timetableDate: getDateString(),
 
   setUsers: (usersData: IUserData[]): void => {
     set(
@@ -56,19 +64,29 @@ const useAppStore = create<AppState>((set, get) => ({
     );
   },
 
-  setTimetableUsers: (id: number): void => {
-    const inArray = get().timetableUsers.find((user) => user.id === id);
+  deleteTimetableUser: (userId: number): void => {
+    set(
+      produce((state: AppState) => {
+        state.timetableUsers = state.timetableUsers.filter(
+          (user) => user.id !== userId
+        );
+      })
+    );
+  },
 
-    if (inArray) return;
+  setTimetableUsers: (id: number): void => {
+    const isUserInArray = get().timetableUsers.find((user) => user.id === id);
+
+    if (isUserInArray) return;
 
     const selectedUser = get().users.filter((user) => user.id === id);
 
     const newUser = {
       ...selectedUser[0],
       projects: [],
-    } as unknown as IUserTimetable;
+    };
 
-    if (!inArray) {
+    if (!isUserInArray) {
       set(
         produce((state: AppState) => {
           state.timetableUsers.push(newUser);
@@ -88,10 +106,12 @@ const useAppStore = create<AppState>((set, get) => ({
     );
   },
 
-  updateTimetableUser: (userId: number, projectId: number): void => {
-    const selectedUser = get().timetableUsers.filter(
-      (user) => user.id === userId
-    );
+  addProjectToTimetableUser: (userId: number, projectId: number): void => {
+    const project = get()
+      .timetableUsers.filter((user) => user.id === userId)[0]
+      .projects.filter((project) => project.id === projectId);
+
+    if (project.length) return;
 
     const selectedProject = get().projects.filter(
       (project) => project.id === projectId
@@ -106,18 +126,48 @@ const useAppStore = create<AppState>((set, get) => ({
 
     set(
       produce((state: AppState) => {
-        state.timetableUsers.map((user) => {
-          if (user.id === userId) {
-            return {
-              ...user,
-              projects: user.projects.push(newProject),
-            };
-          } else {
-            return {
-              user,
-            };
-          }
-        });
+        state.timetableUsers
+          .filter((user) => user.id === userId)[0]
+          .projects.push(newProject);
+      })
+    );
+  },
+
+  updatedUserProjectTimetable: (
+    userId: number,
+    changedLayout: Layout[]
+  ): void => {
+    console.log("STORE", userId, changedLayout);
+
+    if (!changedLayout.length) return;
+
+    const userToUpdate = get().timetableUsers.filter(
+      (user) => user.id === userId
+    );
+
+    const updatedProjects = userToUpdate[0].projects.map((project) => {
+      const projectId = project.id;
+      const newCoords = changedLayout.filter((cl) => +cl.i === projectId);
+
+      console.log("store project", project);
+      console.log("store newCoords", newCoords[0]);
+
+      return {
+        ...project,
+        timetableCoords: {
+          ...newCoords[0],
+        },
+      };
+    });
+
+    console.log("updatedProjects", updatedProjects);
+
+    if (!updatedProjects.length) return;
+
+    set(
+      produce((state: AppState) => {
+        state.timetableUsers.filter((user) => user.id === userId)[0].projects =
+          updatedProjects as unknown as IProjectTimeTable[];
       })
     );
   },

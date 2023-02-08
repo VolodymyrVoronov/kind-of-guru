@@ -7,8 +7,9 @@ import {
   Grid,
   Spacer,
   Text,
+  Tooltip,
 } from "@nextui-org/react";
-import { IoPersonSharp } from "react-icons/io5";
+import { IoTrashOutline, IoAddCircleOutline } from "react-icons/io5";
 
 import IUser from "../../types/User";
 
@@ -21,11 +22,13 @@ interface IUserData extends IUser {
 interface ITimetableUser {
   user: IUserData;
   onDeleteClick: (id: number) => void;
+  onAddProjectClick: () => void;
 }
 
 const TimetableUser = ({
   user,
   onDeleteClick,
+  onAddProjectClick,
 }: ITimetableUser): JSX.Element => {
   const [isHover, setIsHover] = useState(false);
 
@@ -96,17 +99,41 @@ const TimetableUser = ({
         </Card.Header>
 
         <Card.Body css={{ p: "0 5px 5px 5px" }}>
-          <Button
-            onPress={onDeleteButtonClick}
-            css={{ fs: 14, opacity: isHover ? 1 : 0.2 }}
-            color="error"
-            bordered
-            auto
-            size="xs"
-            iconRight={<IoPersonSharp />}
+          <Container
+            css={{
+              d: "flex",
+              fd: "column",
+              fw: "nowrap",
+              m: 0,
+              p: 0,
+            }}
           >
-            Delete user
-          </Button>
+            <Button.Group size="md" bordered>
+              <Button
+                onPress={onDeleteButtonClick}
+                css={{
+                  w: "100%",
+                  p: 0,
+                }}
+              >
+                <Tooltip content="Delete this user from timetable">
+                  <IoTrashOutline fontSize="20px" />
+                </Tooltip>
+              </Button>
+
+              <Button
+                onPress={onAddProjectClick}
+                css={{
+                  w: "100%",
+                  p: 0,
+                }}
+              >
+                <Tooltip content="Add project to timetable">
+                  <IoAddCircleOutline fontSize="20px" />
+                </Tooltip>
+              </Button>
+            </Button.Group>
+          </Container>
         </Card.Body>
       </Card>
     </Container>

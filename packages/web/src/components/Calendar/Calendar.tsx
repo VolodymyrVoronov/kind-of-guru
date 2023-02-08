@@ -1,3 +1,4 @@
+import { memo } from "react";
 import InfiniteCalendar from "react-infinite-calendar";
 
 import getDateString from "../../helpers/getDateString";
@@ -40,4 +41,4 @@ const Calendar = ({ onDateClick: oDClick }: ICalendarProps): JSX.Element => {
   );
 };
 
-export default Calendar;
+export default memo(Calendar);

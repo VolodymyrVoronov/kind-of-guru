@@ -1,4 +1,5 @@
-import { MouseEvent, useEffect } from "react";
+import { useEffect } from "react";
+import { Layout } from "react-grid-layout";
 import {
   Grid,
   Modal,
@@ -27,12 +28,16 @@ const TimetableUserBlock = ({
 }: ITimetableUserBlockProps): JSX.Element => {
   const {
     setProjects,
-    updateTimetableUser,
+    deleteTimetableUser,
+    addProjectToTimetableUser,
+    updatedUserProjectTimetable,
     projects: storeProjects,
     timetableUsers,
   } = useAppStore();
 
   const { id: userId, projects } = timetableUser;
+
+  console.log("timetableUser", projects);
 
   const { setVisible, bindings } = useModal();
 
@@ -46,14 +51,20 @@ const TimetableUserBlock = ({
 
   const onProjectCardMiniClick = (projectId: number): void => {
     setVisible(false);
-    updateTimetableUser(userId, projectId);
+    addProjectToTimetableUser(userId, projectId);
   };
 
-  const onDeleteClick = (id: number): void => {};
+  const onDeleteClick = (id: number): void => {
+    deleteTimetableUser(id);
+  };
 
-  const onGridLayoutClick = (e: MouseEvent<unknown>): void => {
+  const onAddProjectClick = (): void => {
     setVisible(true);
     refetch();
+  };
+
+  const onGridChange = (changedLayout: Layout[]): void => {
+    updatedUserProjectTimetable(userId, changedLayout);
   };
 
   useEffect(() => {
@@ -123,19 +134,21 @@ const TimetableUserBlock = ({
             w: 144,
           }}
         >
-          <TimetableUser user={timetableUser} onDeleteClick={onDeleteClick} />
+          <TimetableUser
+            user={timetableUser}
+            onDeleteClick={onDeleteClick}
+            onAddProjectClick={onAddProjectClick}
+          />
         </Grid>
 
         <Grid
           className={styles.timetableGrid}
-          onClick={onGridLayoutClick}
           css={{
             d: "flex",
             flexGrow: 1,
-            cursor: "pointer",
           }}
         >
-          <TimetableGrid projects={projects} />
+          <TimetableGrid projects={projects} onGridChange={onGridChange} />
         </Grid>
       </Grid.Container>
     </div>
