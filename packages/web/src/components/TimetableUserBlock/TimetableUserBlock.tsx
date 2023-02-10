@@ -32,12 +32,9 @@ const TimetableUserBlock = ({
     addProjectToTimetableUser,
     updatedUserProjectTimetable,
     projects: storeProjects,
-    timetableUsers,
   } = useAppStore();
 
   const { id: userId, projects } = timetableUser;
-
-  console.log("timetableUser", projects);
 
   const { setVisible, bindings } = useModal();
 
@@ -71,9 +68,7 @@ const TimetableUserBlock = ({
     if (!isLoadingFetchProjects && dataProjects && bindings.open) {
       setProjects(dataProjects);
     }
-  }, [isLoadingFetchProjects]);
-
-  console.log("projects", projects);
+  }, [isLoadingFetchProjects, bindings.open]);
 
   return (
     <div>

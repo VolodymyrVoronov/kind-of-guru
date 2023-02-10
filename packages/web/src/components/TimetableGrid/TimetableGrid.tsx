@@ -29,8 +29,6 @@ const TimetableGrid = ({
     let newLayout = [] as Layout[];
 
     projects.forEach((p) => {
-      console.log("FORE EACH", p.timetableCoords);
-
       return newLayout.push(p.timetableCoords as unknown as Layout);
     });
 
@@ -41,10 +39,7 @@ const TimetableGrid = ({
 
   const onLayoutChange = (l: Layout[]) => {
     onGridChange(l);
-    // setLayout(l);
   };
-
-  console.log("GRID", projects);
 
   return (
     <ResponsiveReactGridLayout
@@ -67,10 +62,13 @@ const TimetableGrid = ({
         resize: "vertical",
       }}
     >
-      {layout.map((layoutItem, i) => (
+      {layout.map((layoutItem, index) => (
         <div key={layoutItem.i} data-grid={layoutItem} className="block">
-          {projects[+layoutItem.i - 1] && (
-            <div>{projects[+layoutItem.i - 1].client}</div>
+          {projects[index] && (
+            <>
+              <div>{projects[index].client}</div>
+              <div>{projects[index].projectName}</div>
+            </>
           )}
           {layoutItem.i}
         </div>

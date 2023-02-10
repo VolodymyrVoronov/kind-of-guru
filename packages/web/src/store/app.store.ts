@@ -33,7 +33,8 @@ interface AppState {
   setUsers: (usersData: IUserData[]) => void;
   setProjects: (projectsData: IProjectData[]) => void;
   deleteTimetableUser: (userId: number) => void;
-  setTimetableUsers: (id: number) => void;
+  clearTimetableUser: () => void;
+  setTimetableUsers: (id: number, projects?: IProjectTimeTable[]) => void;
   setTimetableDate: (date: string) => void;
   addProjectToTimetableUser: (userId: number, projectId: number) => void;
   updatedUserProjectTimetable: (
@@ -74,7 +75,15 @@ const useAppStore = create<AppState>((set, get) => ({
     );
   },
 
-  setTimetableUsers: (id: number): void => {
+  clearTimetableUser: (): void => {
+    set(
+      produce((state: AppState) => {
+        state.timetableUsers = [];
+      })
+    );
+  },
+
+  setTimetableUsers: (id: number, projects?: IProjectTimeTable[]): void => {
     const isUserInArray = get().timetableUsers.find((user) => user.id === id);
 
     if (isUserInArray) return;
@@ -83,7 +92,7 @@ const useAppStore = create<AppState>((set, get) => ({
 
     const newUser = {
       ...selectedUser[0],
-      projects: [],
+      projects: projects || [],
     };
 
     if (!isUserInArray) {
@@ -137,7 +146,7 @@ const useAppStore = create<AppState>((set, get) => ({
     userId: number,
     changedLayout: Layout[]
   ): void => {
-    console.log("STORE", userId, changedLayout);
+    // console.log("STORE", userId, changedLayout);
 
     if (!changedLayout.length) return;
 
@@ -149,8 +158,8 @@ const useAppStore = create<AppState>((set, get) => ({
       const projectId = project.id;
       const newCoords = changedLayout.filter((cl) => +cl.i === projectId);
 
-      console.log("store project", project);
-      console.log("store newCoords", newCoords[0]);
+      // console.log("store project", project);
+      // console.log("store newCoords", newCoords[0]);
 
       return {
         ...project,
@@ -160,7 +169,7 @@ const useAppStore = create<AppState>((set, get) => ({
       };
     });
 
-    console.log("updatedProjects", updatedProjects);
+    // console.log("updatedProjects", updatedProjects);
 
     if (!updatedProjects.length) return;
 

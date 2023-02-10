@@ -8,9 +8,10 @@ import {
   Container,
   Loading,
 } from "@nextui-org/react";
+import superjson from "superjson";
 import { IoPersonAddSharp } from "react-icons/io5";
 
-import useAppStore from "../../store/app.store";
+import useAppStore, { IUserTimetable } from "../../store/app.store";
 
 import trpc from "../../hooks/trpc";
 
@@ -36,6 +37,7 @@ const Main = (): JSX.Element => {
     setUsers,
     setTimetableUsers,
     setTimetableDate,
+    clearTimetableUser,
     users,
     timetableUsers,
     timetableDate,
@@ -45,36 +47,50 @@ const Main = (): JSX.Element => {
 
   const utils = trpc.useContext();
 
+  const fetchComplete = useRef<boolean>(false);
+
   // const [timetableUsers, setTimetableUsers] = useState<IUser[]>([]);
   // const [timetableDate, setTimetableDate] = useState(getDateString());
 
   const {
-    refetch,
+    refetch: refetchDataUsers,
     data: dataUsers,
     isLoading: isLoadingFetchUsers,
+    isSuccess: isSuccessFetchUsers,
     isError: isErrorFetchUsers,
     error: errorFetchUsers,
   } = trpc.useQuery(["getUsers"], { enabled: false });
 
   const {
+    refetch: refetchDataTimetable,
     data: dataTimetable,
     isLoading: isLoadingFetchTimetable,
     isSuccess: isSuccessFetchTimetable,
     isError: isErrorFetchTimetable,
     error: errorFetchTimetable,
-  } = trpc.useQuery(["getTimetable", { timetableDate }], { enabled: false });
+  } = trpc.useQuery(["getTimetable", { timetableDate }], {
+    enabled: false,
+  });
 
   const {
-    mutate,
+    mutate: mutateCreateTimetable,
     isLoading: isLoadingCreateTimetable,
     isSuccess: isSuccessCreateTimetable,
     isError: isErrorCreateTimetable,
     error: errorCreateTimetable,
   } = trpc.useMutation(["createTimetable"]);
 
+  const {
+    mutate: mutateUpdateTimetable,
+    isLoading: isLoadingUpdateTimetable,
+    isSuccess: isSuccessUpdateTimetable,
+    isError: isErrorUpdateTimetable,
+    error: errorUpdateTimetable,
+  } = trpc.useMutation(["updateTimetable"]);
+
   const onAddUserButtonClick = (): void => {
     setVisible(true);
-    refetch();
+    refetchDataUsers();
   };
 
   const onDateClick = useMemo(
@@ -91,30 +107,83 @@ const Main = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (!isLoadingFetchUsers && dataUsers && bindings.open) {
-      setUsers(dataUsers);
+    refetchDataUsers();
+
+    if ((isSuccessFetchUsers && dataUsers) || bindings.open) {
+      if (dataUsers) setUsers(dataUsers);
     }
-  }, [isLoadingFetchUsers]);
+  }, [isSuccessFetchUsers, bindings.open]);
 
-  // useEffect(() => {
-  //   const newTimetable = {
-  //     timetableDate,
-  //     users: JSON.stringify(timetableUsers),
-  //   };
+  useEffect(() => {
+    refetchDataTimetable();
 
-  //   mutate(newTimetable);
-  // }, [timetableUsers]);
+    if (isSuccessFetchTimetable) {
+      const dateTimetableDB = dataTimetable?.timetableDate;
 
-  // useEffect(() => {
-  //   if (isSuccessCreateTimetable) {
-  //     utils.invalidateQueries();
-  //   }
-  // }, [isSuccessCreateTimetable]);
+      if (timetableDate === dateTimetableDB) {
+        if (dataTimetable && dataTimetable?.users !== "") {
+          clearTimetableUser();
 
-  // console.log("users", users);
-  console.log("timetableUsers", timetableUsers);
-  console.log("timetableDate", timetableDate);
-  // console.log("dataTimetable", dataTimetable);
+          const newDataTimetable = {
+            id: dataTimetable.id,
+            dataTimetable: dataTimetable.timetableDate,
+            users: superjson.parse(dataTimetable.users),
+          };
+
+          if (Symbol.iterator in Object(newDataTimetable.users)) {
+            for (const user of newDataTimetable.users as IUserTimetable[]) {
+              setTimetableUsers(user.id, user.projects);
+            }
+          }
+        } else {
+          clearTimetableUser();
+        }
+      }
+
+      if (timetableDate !== dateTimetableDB) {
+        const newTimetable = {
+          timetableDate,
+          users: "",
+        };
+
+        mutateCreateTimetable(newTimetable);
+
+        if (isSuccessCreateTimetable) {
+          refetchDataTimetable();
+        }
+      }
+    }
+  }, [timetableDate, isSuccessFetchTimetable, isSuccessCreateTimetable]);
+
+  useEffect(() => {
+    if (dataTimetable) {
+      const updatedNewDataTimetable = {
+        id: dataTimetable.id,
+        timetableDate,
+        users: superjson.stringify(timetableUsers),
+      };
+
+      console.log(
+        JSON.stringify(updatedNewDataTimetable) !==
+          JSON.stringify(dataTimetable)
+      );
+
+      if (
+        JSON.stringify(updatedNewDataTimetable) !==
+          JSON.stringify(dataTimetable) &&
+        updatedNewDataTimetable.id === dataTimetable.id
+      ) {
+        console.log("UPDATE");
+        mutateUpdateTimetable(updatedNewDataTimetable);
+      }
+    }
+  }, [timetableUsers]);
+
+  useEffect(() => {
+    if (isSuccessUpdateTimetable || !isLoadingUpdateTimetable) {
+      refetchDataTimetable();
+    }
+  }, [isSuccessUpdateTimetable]);
 
   return (
     <div className={styles.main}>
@@ -188,6 +257,8 @@ const Main = (): JSX.Element => {
           css={{
             d: "flex",
             fd: "column",
+            fw: "nowrap",
+            overflow: "auto",
             height: `${window.innerHeight - 108}px`,
             background:
               "linear-gradient(-45deg, #0072f522 -20%, #ff4ecd24 80%)",
