@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   Button,
   Grid,
@@ -7,6 +7,7 @@ import {
   Text,
   Container,
   Loading,
+  Badge,
 } from "@nextui-org/react";
 import { AnimatePresence } from "framer-motion";
 import superjson from "superjson";
@@ -22,6 +23,7 @@ import TimeLine from "../../components/TimeLine/TimeLine";
 import TimetableUserBlock from "../../components/TimetableUserBlock/TimetableUserBlock";
 import AddUserInfoBlock from "../../components/AddUserInfoBlock/AddUserInfoBlock";
 import UserCardMini from "../../components/UserCardMini/UserCardMini";
+import AnimatedWrapper from "../../components/AnimatedWrapper/AnimatedWrapper";
 
 import styles from "./Main.module.css";
 
@@ -38,8 +40,6 @@ const Main = (): JSX.Element => {
 
   const { setVisible, bindings } = useModal();
 
-  const utils = trpc.useContext();
-
   const {
     refetch: refetchDataUsers,
     data: dataUsers,
@@ -52,7 +52,6 @@ const Main = (): JSX.Element => {
   const {
     refetch: refetchDataTimetable,
     data: dataTimetable,
-    isLoading: isLoadingFetchTimetable,
     isSuccess: isSuccessFetchTimetable,
     isError: isErrorFetchTimetable,
     error: errorFetchTimetable,
@@ -62,7 +61,6 @@ const Main = (): JSX.Element => {
 
   const {
     mutate: mutateCreateTimetable,
-    isLoading: isLoadingCreateTimetable,
     isSuccess: isSuccessCreateTimetable,
     isError: isErrorCreateTimetable,
     error: errorCreateTimetable,
@@ -175,6 +173,90 @@ const Main = (): JSX.Element => {
 
   return (
     <div className={styles.main}>
+      {isErrorFetchTimetable && (
+        <Container
+          justify="center"
+          css={{
+            position: "absolute",
+            zIndex: 111,
+            bottom: 0,
+            right: 0,
+            d: "flex",
+            justifyContent: "flex-end",
+            p: 0,
+            m: 0,
+          }}
+        >
+          <Badge
+            size="lg"
+            color="error"
+            css={{
+              textAlign: "center",
+              borderRadius: 14,
+            }}
+          >
+            Something has gone wrong. <br />
+            {errorFetchTimetable?.message}
+          </Badge>
+        </Container>
+      )}
+
+      {isErrorCreateTimetable && (
+        <Container
+          justify="center"
+          css={{
+            position: "absolute",
+            zIndex: 111,
+            bottom: 0,
+            right: 0,
+            d: "flex",
+            justifyContent: "flex-end",
+            p: 0,
+            m: 0,
+          }}
+        >
+          <Badge
+            size="lg"
+            color="error"
+            css={{
+              textAlign: "center",
+              borderRadius: 14,
+            }}
+          >
+            Something has gone wrong. <br />
+            {errorCreateTimetable?.message}
+          </Badge>
+        </Container>
+      )}
+
+      {isErrorUpdateTimetable && (
+        <Container
+          justify="center"
+          css={{
+            position: "absolute",
+            zIndex: 111,
+            bottom: 0,
+            right: 0,
+            d: "flex",
+            justifyContent: "flex-end",
+            p: 0,
+            m: 0,
+          }}
+        >
+          <Badge
+            size="lg"
+            color="error"
+            css={{
+              textAlign: "center",
+              borderRadius: 14,
+            }}
+          >
+            Something has gone wrong. <br />
+            {errorUpdateTimetable?.message}
+          </Badge>
+        </Container>
+      )}
+
       <Modal
         scroll
         width="768px"
@@ -215,6 +297,31 @@ const Main = (): JSX.Element => {
                   />
                 );
               })
+            )}
+
+            {isErrorFetchUsers && (
+              <AnimatedWrapper>
+                <Container
+                  justify="center"
+                  css={{
+                    d: "flex",
+                    p: 0,
+                    m: 0,
+                  }}
+                >
+                  <Badge
+                    size="lg"
+                    color="error"
+                    css={{
+                      textAlign: "center",
+                      borderRadius: 14,
+                    }}
+                  >
+                    Something has gone wrong. <br />
+                    {errorFetchUsers?.message}
+                  </Badge>
+                </Container>
+              </AnimatedWrapper>
             )}
           </Container>
         </Modal.Body>
