@@ -8,7 +8,6 @@ import {
 import cn from "classnames";
 
 import styles from "./TimetableGridItem.module.css";
-import { Tooltip } from "@nextui-org/react";
 
 interface ITimetableGridItemProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {

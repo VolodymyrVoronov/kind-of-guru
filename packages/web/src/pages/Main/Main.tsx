@@ -16,8 +16,6 @@ import useAppStore, { IUserTimetable } from "../../store/app.store";
 
 import trpc from "../../hooks/trpc";
 
-import IUser from "../../types/User";
-
 import Calendar from "../../components/Calendar/Calendar";
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
 import TimeLine from "../../components/TimeLine/TimeLine";
@@ -26,10 +24,6 @@ import AddUserInfoBlock from "../../components/AddUserInfoBlock/AddUserInfoBlock
 import UserCardMini from "../../components/UserCardMini/UserCardMini";
 
 import styles from "./Main.module.css";
-
-interface IUserData extends IUser {
-  id: number;
-}
 
 const Main = (): JSX.Element => {
   const {
@@ -45,11 +39,6 @@ const Main = (): JSX.Element => {
   const { setVisible, bindings } = useModal();
 
   const utils = trpc.useContext();
-
-  const fetchComplete = useRef<boolean>(false);
-
-  // const [timetableUsers, setTimetableUsers] = useState<IUser[]>([]);
-  // const [timetableDate, setTimetableDate] = useState(getDateString());
 
   const {
     refetch: refetchDataUsers,

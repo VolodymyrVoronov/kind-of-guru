@@ -11,6 +11,7 @@ import "react-resizable/css/styles.css";
 interface ITimetableGridProps {
   projects: IProjectTimeTable[];
   onGridChange: (changedLayout: Layout[]) => void;
+  onProjectRightClick: (projectId: number) => void;
 }
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -18,6 +19,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const TimetableGrid = ({
   projects,
   onGridChange,
+  onProjectRightClick,
 }: ITimetableGridProps): JSX.Element => {
   const [mounted, setMounted] = useState(false);
   const [layout, setLayout] = useState<Layout[]>([]);
@@ -38,8 +40,19 @@ const TimetableGrid = ({
     }
   }, [projects]);
 
-  const onLayoutChange = (l: Layout[]) => {
+  const onLayoutChange = (l: Layout[]): void => {
     onGridChange(l);
+  };
+
+  const onProjectRightMouseClick = (
+    e: React.MouseEvent,
+    projectId: number
+  ): void => {
+    e.preventDefault();
+
+    if (e.type === "contextmenu") {
+      onProjectRightClick(projectId);
+    }
   };
 
   return (
@@ -64,7 +77,11 @@ const TimetableGrid = ({
       }}
     >
       {layout.map((layoutItem, index) => (
-        <TimetableGridItem key={layoutItem.i} data-grid={layoutItem}>
+        <TimetableGridItem
+          key={layoutItem.i}
+          data-grid={layoutItem}
+          onContextMenu={(e) => onProjectRightMouseClick(e, projects[index].id)}
+        >
           {projects[index] && (
             <>
               <span>{projects[index].client}</span>

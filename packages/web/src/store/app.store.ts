@@ -37,6 +37,7 @@ interface AppState {
   setTimetableUsers: (id: number, projects?: IProjectTimeTable[]) => void;
   setTimetableDate: (date: string) => void;
   addProjectToTimetableUser: (userId: number, projectId: number) => void;
+  deleteProjectFromTimetableUser: (userId: number, projectId: number) => void;
   updatedUserProjectTimetable: (
     userId: number,
     changedLayout: Layout[]
@@ -138,6 +139,24 @@ const useAppStore = create<AppState>((set, get) => ({
         state.timetableUsers
           .filter((user) => user.id === userId)[0]
           .projects.push(newProject);
+      })
+    );
+  },
+
+  deleteProjectFromTimetableUser: (userId: number, projectId: number): void => {
+    set(
+      produce((state: AppState) => {
+        state.timetableUsers = state.timetableUsers.map((user) => {
+          if (user.id === userId) {
+            return {
+              ...user,
+              projects: user.projects.filter(
+                (project) => project.id !== projectId
+              ),
+            };
+          }
+          return user;
+        });
       })
     );
   },

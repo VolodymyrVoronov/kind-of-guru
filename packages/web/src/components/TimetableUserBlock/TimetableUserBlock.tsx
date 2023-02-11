@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Layout } from "react-grid-layout";
 import {
   Grid,
@@ -7,6 +7,7 @@ import {
   Text,
   Container,
   Loading,
+  Button,
 } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
@@ -17,6 +18,7 @@ import trpc from "../../hooks/trpc";
 import TimetableUser from "../TimetableUser/TimetableUser";
 import TimetableGrid from "../TimetableGrid/TimetableGrid";
 import ProjectCardMini from "../ProjectCardMini/ProjectCardMini";
+import CustomModal from "../CustomModal/CustomModal";
 
 import styles from "./TimetableUserBlock.module.css";
 
@@ -31,6 +33,7 @@ const TimetableUserBlock = ({
     setProjects,
     deleteTimetableUser,
     addProjectToTimetableUser,
+    deleteProjectFromTimetableUser,
     updatedUserProjectTimetable,
     projects: storeProjects,
   } = useAppStore();
@@ -38,6 +41,8 @@ const TimetableUserBlock = ({
   const { id: userId, projects } = timetableUser;
 
   const { setVisible, bindings } = useModal();
+  const [isPopoverVisible, setIsPopoverVisible] = useState(false);
+  const [projectIdToDelete, setProjectIdToDelete] = useState<number>();
 
   const {
     refetch,
@@ -65,6 +70,22 @@ const TimetableUserBlock = ({
     updatedUserProjectTimetable(userId, changedLayout);
   };
 
+  const onProjectRightClick = (projectId: number): void => {
+    setProjectIdToDelete(projectId);
+    setIsPopoverVisible(true);
+  };
+
+  const onCancelButtonClick = (): void => {
+    setIsPopoverVisible(false);
+  };
+
+  const onConfirmDeleteButtonClick = (): void => {
+    if (projectIdToDelete) {
+      deleteProjectFromTimetableUser(userId, projectIdToDelete);
+      setIsPopoverVisible(false);
+    }
+  };
+
   useEffect(() => {
     if (!isLoadingFetchProjects && dataProjects && bindings.open) {
       setProjects(dataProjects);
@@ -78,6 +99,27 @@ const TimetableUserBlock = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <CustomModal
+        title="Are you sure you want to delete this project from timetable?"
+        isVisible={isPopoverVisible}
+        onClose={onCancelButtonClick}
+        cancelButton={
+          <Button onPress={onCancelButtonClick} size="sm" light bordered>
+            Cancel
+          </Button>
+        }
+        confirmButton={
+          <Button
+            onPress={onConfirmDeleteButtonClick}
+            size="sm"
+            shadow
+            color="error"
+          >
+            Delete
+          </Button>
+        }
+      />
+
       <Modal
         scroll
         width="768px"
@@ -149,7 +191,11 @@ const TimetableUserBlock = ({
             flexGrow: 1,
           }}
         >
-          <TimetableGrid projects={projects} onGridChange={onGridChange} />
+          <TimetableGrid
+            projects={projects}
+            onGridChange={onGridChange}
+            onProjectRightClick={onProjectRightClick}
+          />
         </Grid>
       </Grid.Container>
     </motion.div>
