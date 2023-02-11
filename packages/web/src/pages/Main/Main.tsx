@@ -152,17 +152,11 @@ const Main = (): JSX.Element => {
         users: superjson.stringify(timetableUsers),
       };
 
-      console.log(
-        JSON.stringify(updatedNewDataTimetable) !==
-          JSON.stringify(dataTimetable)
-      );
-
       if (
         JSON.stringify(updatedNewDataTimetable) !==
           JSON.stringify(dataTimetable) &&
         updatedNewDataTimetable.id === dataTimetable.id
       ) {
-        console.log("UPDATE");
         mutateUpdateTimetable(updatedNewDataTimetable);
       }
     }
