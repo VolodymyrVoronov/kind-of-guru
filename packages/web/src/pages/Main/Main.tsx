@@ -8,6 +8,7 @@ import {
   Container,
   Loading,
   Badge,
+  Progress,
 } from "@nextui-org/react";
 import { AnimatePresence } from "framer-motion";
 import superjson from "superjson";
@@ -52,6 +53,7 @@ const Main = (): JSX.Element => {
   const {
     refetch: refetchDataTimetable,
     data: dataTimetable,
+    isLoading: isLoadingFetchTimetable,
     isSuccess: isSuccessFetchTimetable,
     isError: isErrorFetchTimetable,
     error: errorFetchTimetable,
@@ -62,6 +64,7 @@ const Main = (): JSX.Element => {
   const {
     mutate: mutateCreateTimetable,
     isSuccess: isSuccessCreateTimetable,
+    isLoading: isLoadingCreateTimetable,
     isError: isErrorCreateTimetable,
     error: errorCreateTimetable,
   } = trpc.useMutation(["createTimetable"]);
@@ -347,6 +350,24 @@ const Main = (): JSX.Element => {
           />
           <TimeLine />
         </div>
+
+        {(isLoadingFetchTimetable ||
+          isLoadingUpdateTimetable ||
+          isLoadingCreateTimetable) && (
+          <Progress
+            indeterminated
+            value={50}
+            color="gradient"
+            status="secondary"
+            css={{
+              position: "absolute",
+              zIndex: 111,
+              bottom: 0,
+              left: 0,
+              borderRadius: 0,
+            }}
+          />
+        )}
 
         <Grid.Container
           css={{
