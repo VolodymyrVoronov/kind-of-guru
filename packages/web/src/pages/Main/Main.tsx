@@ -10,7 +10,7 @@ import {
   Badge,
   Progress,
 } from "@nextui-org/react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import superjson from "superjson";
 import { IoPersonAddSharp } from "react-icons/io5";
 
@@ -351,23 +351,32 @@ const Main = (): JSX.Element => {
           <TimeLine />
         </div>
 
-        {(isLoadingFetchTimetable ||
-          isLoadingUpdateTimetable ||
-          isLoadingCreateTimetable) && (
-          <Progress
-            indeterminated
-            value={50}
-            color="gradient"
-            status="secondary"
-            css={{
-              position: "absolute",
-              zIndex: 111,
-              bottom: 0,
-              left: 0,
-              borderRadius: 0,
-            }}
-          />
-        )}
+        <AnimatePresence>
+          {(isLoadingFetchTimetable ||
+            isLoadingUpdateTimetable ||
+            isLoadingCreateTimetable) && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ ease: "easeInOut", duration: 2, delay: 2 }}
+            >
+              <Progress
+                indeterminated
+                value={50}
+                color="gradient"
+                status="secondary"
+                css={{
+                  position: "absolute",
+                  zIndex: 111,
+                  bottom: 0,
+                  left: 0,
+                  borderRadius: 0,
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <Grid.Container
           css={{
