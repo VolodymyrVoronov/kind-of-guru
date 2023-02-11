@@ -230,6 +230,7 @@ const ProjectCard = ({
             Information: <Spacer x={0.5} />
             <ImInfo display="flex" size="16px" />
           </Text>
+
           {information ? (
             <Text b>{information}</Text>
           ) : (

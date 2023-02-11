@@ -8,6 +8,7 @@ import {
   Container,
   Loading,
   Button,
+  Badge,
 } from "@nextui-org/react";
 import { motion } from "framer-motion";
 
@@ -19,6 +20,7 @@ import TimetableUser from "../TimetableUser/TimetableUser";
 import TimetableGrid from "../TimetableGrid/TimetableGrid";
 import ProjectCardMini from "../ProjectCardMini/ProjectCardMini";
 import CustomModal from "../CustomModal/CustomModal";
+import AnimatedWrapper from "../AnimatedWrapper/AnimatedWrapper";
 
 import styles from "./TimetableUserBlock.module.css";
 
@@ -136,6 +138,7 @@ const TimetableUserBlock = ({
           <Container
             css={{
               d: "flex",
+              jc: "center",
               fd: "row",
               fw: "wrap",
               p: 0,
@@ -160,6 +163,31 @@ const TimetableUserBlock = ({
                   />
                 );
               })
+            )}
+
+            {isErrorFetchProjects && (
+              <AnimatedWrapper>
+                <Container
+                  justify="center"
+                  css={{
+                    d: "flex",
+                    p: 0,
+                    m: 0,
+                  }}
+                >
+                  <Badge
+                    size="lg"
+                    color="error"
+                    css={{
+                      textAlign: "center",
+                      borderRadius: 14,
+                    }}
+                  >
+                    Something has gone wrong. <br />
+                    {errorFetchProjects?.message}
+                  </Badge>
+                </Container>
+              </AnimatedWrapper>
             )}
           </Container>
         </Modal.Body>
