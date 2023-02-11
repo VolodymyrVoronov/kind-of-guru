@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Layout, Responsive, WidthProvider } from "react-grid-layout";
 
 import { IProjectTimeTable } from "../../store/app.store";
 
-import styles from "./TimetableGrid.module.css";
+import TimetableGridItem from "../TimetableGridItem/TimetableGridItem";
+
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
@@ -63,19 +64,14 @@ const TimetableGrid = ({
       }}
     >
       {layout.map((layoutItem, index) => (
-        <div
-          key={layoutItem.i}
-          data-grid={layoutItem}
-          className={styles["layout-item"]}
-        >
+        <TimetableGridItem key={layoutItem.i} data-grid={layoutItem}>
           {projects[index] && (
             <>
-              <div>{projects[index].client}</div>
-              <div>{projects[index].projectName}</div>
+              <span>{projects[index].client}</span>
+              <span>{projects[index].projectName}</span>
             </>
           )}
-          {layoutItem.i}
-        </div>
+        </TimetableGridItem>
       ))}
     </ResponsiveReactGridLayout>
   );

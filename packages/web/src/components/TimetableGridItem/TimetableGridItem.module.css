@@ -2,10 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+
+  min-width: 37px;
 
   text-align: center;
+  font-size: 14px;
+  line-height: 16px;
   user-select: none;
-  color: #7828c8;
+  color: #7216ce;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   background: #cfaaf5;
 
