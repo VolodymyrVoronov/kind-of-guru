@@ -1,0 +1,22 @@
+.layout-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  user-select: none;
+  color: #7828c8;
+
+  background: #cfaaf5;
+
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.layout-item:hover {
+  cursor: grab;
+  background: #d0aaf5a8;
+}
+
+.layout-item:active {
+  cursor: grabbing;
+}

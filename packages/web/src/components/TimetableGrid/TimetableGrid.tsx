@@ -3,7 +3,7 @@ import { Layout, Responsive, WidthProvider } from "react-grid-layout";
 
 import { IProjectTimeTable } from "../../store/app.store";
 
-import "./styles.css";
+import styles from "./TimetableGrid.module.css";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
@@ -63,7 +63,11 @@ const TimetableGrid = ({
       }}
     >
       {layout.map((layoutItem, index) => (
-        <div key={layoutItem.i} data-grid={layoutItem} className="block">
+        <div
+          key={layoutItem.i}
+          data-grid={layoutItem}
+          className={styles["layout-item"]}
+        >
           {projects[index] && (
             <>
               <div>{projects[index].client}</div>

@@ -146,8 +146,6 @@ const useAppStore = create<AppState>((set, get) => ({
     userId: number,
     changedLayout: Layout[]
   ): void => {
-    // console.log("STORE", userId, changedLayout);
-
     if (!changedLayout.length) return;
 
     const userToUpdate = get().timetableUsers.filter(
@@ -158,9 +156,6 @@ const useAppStore = create<AppState>((set, get) => ({
       const projectId = project.id;
       const newCoords = changedLayout.filter((cl) => +cl.i === projectId);
 
-      // console.log("store project", project);
-      // console.log("store newCoords", newCoords[0]);
-
       return {
         ...project,
         timetableCoords: {
@@ -168,8 +163,6 @@ const useAppStore = create<AppState>((set, get) => ({
         },
       };
     });
-
-    // console.log("updatedProjects", updatedProjects);
 
     if (!updatedProjects.length) return;
 
