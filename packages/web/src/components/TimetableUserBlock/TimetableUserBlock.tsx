@@ -8,6 +8,7 @@ import {
   Container,
   Loading,
 } from "@nextui-org/react";
+import { motion } from "framer-motion";
 
 import useAppStore, { IUserTimetable } from "../../store/app.store";
 
@@ -71,7 +72,12 @@ const TimetableUserBlock = ({
   }, [isLoadingFetchProjects, bindings.open]);
 
   return (
-    <div>
+    <motion.div
+      key={userId}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <Modal
         scroll
         width="768px"
@@ -146,7 +152,7 @@ const TimetableUserBlock = ({
           <TimetableGrid projects={projects} onGridChange={onGridChange} />
         </Grid>
       </Grid.Container>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useLayoutEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import {
   Button,
   Grid,
@@ -8,6 +8,7 @@ import {
   Container,
   Loading,
 } from "@nextui-org/react";
+import { AnimatePresence } from "framer-motion";
 import superjson from "superjson";
 import { IoPersonAddSharp } from "react-icons/io5";
 
@@ -16,8 +17,6 @@ import useAppStore, { IUserTimetable } from "../../store/app.store";
 import trpc from "../../hooks/trpc";
 
 import IUser from "../../types/User";
-
-import getDateString from "../../helpers/getDateString";
 
 import Calendar from "../../components/Calendar/Calendar";
 import ContainerHeightWrapper from "../../components/ContainerHeightWrapper/ContainerHeightWrapper";
@@ -265,9 +264,11 @@ const Main = (): JSX.Element => {
           }}
         >
           {timetableUsers.length > 0 ? (
-            timetableUsers.map((u) => {
-              return <TimetableUserBlock key={u.id} timetableUser={u} />;
-            })
+            <AnimatePresence mode="sync">
+              {timetableUsers.map((u) => {
+                return <TimetableUserBlock key={u.id} timetableUser={u} />;
+              })}
+            </AnimatePresence>
           ) : (
             <AddUserInfoBlock />
           )}
