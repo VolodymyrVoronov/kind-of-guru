@@ -7,6 +7,7 @@ import TimetableGridItem from "../TimetableGridItem/TimetableGridItem";
 
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import convertStringToColor from "../../helpers/stringToColour";
 
 interface ITimetableGridProps {
   projects: IProjectTimeTable[];
@@ -81,6 +82,15 @@ const TimetableGrid = ({
           key={layoutItem.i}
           data-grid={layoutItem}
           onContextMenu={(e) => onProjectRightMouseClick(e, projects[index].id)}
+          style={{
+            background: convertStringToColor(
+              `${
+                projects.length &&
+                projects[index] &&
+                projects[index].projectName + projects[index].client
+              }`
+            ),
+          }}
         >
           {projects[index] && (
             <>

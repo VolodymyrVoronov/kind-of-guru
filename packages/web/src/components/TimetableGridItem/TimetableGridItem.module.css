@@ -3,26 +3,25 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
 
   min-width: 37px;
 
   text-align: center;
   font-size: 14px;
   line-height: 16px;
+  font-weight: 700;
   user-select: none;
-  color: #7216ce;
+  color: #000000;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-
-  background: #d0aaf5c0;
 
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .layout-item:hover {
   cursor: grab;
-  background: #d0aaf5a8;
+  border: 1px solid rgba(0, 0, 0, 1);
 }
 
 .layout-item:active {
