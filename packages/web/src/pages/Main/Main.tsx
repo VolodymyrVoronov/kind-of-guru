@@ -176,8 +176,8 @@ const Main = (): JSX.Element => {
           css={{
             position: "absolute",
             zIndex: 111,
-            bottom: 0,
-            right: 0,
+            bottom: 10,
+            right: 10,
             d: "flex",
             justifyContent: "flex-end",
             p: 0,
@@ -204,8 +204,8 @@ const Main = (): JSX.Element => {
           css={{
             position: "absolute",
             zIndex: 111,
-            bottom: 0,
-            right: 0,
+            bottom: 10,
+            right: 10,
             d: "flex",
             justifyContent: "flex-end",
             p: 0,
@@ -232,8 +232,8 @@ const Main = (): JSX.Element => {
           css={{
             position: "absolute",
             zIndex: 111,
-            bottom: 0,
-            right: 0,
+            bottom: 10,
+            right: 10,
             d: "flex",
             justifyContent: "flex-end",
             p: 0,
