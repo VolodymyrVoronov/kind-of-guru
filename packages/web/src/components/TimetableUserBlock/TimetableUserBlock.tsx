@@ -102,7 +102,7 @@ const TimetableUserBlock = ({
       exit={{ opacity: 0 }}
     >
       <CustomModal
-        title="Are you sure you want to delete this project from timetable?"
+        title="Are you sure you want to delete this project from the timetable?"
         isVisible={isPopoverVisible}
         onClose={onCancelButtonClick}
         cancelButton={
